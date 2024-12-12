@@ -1,4 +1,5 @@
 import LandingCarousel from "./landingCarousel"
+import ThemeToggle from "@/providers/items/themeToggle";
 
 export default function LandingPage() {
 	return (

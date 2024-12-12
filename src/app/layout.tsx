@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+
 import { Montserrat_Alternates, Roboto } from "next/font/google";
 import "./globals.css";
+import AggregateProvider from "@/providers/aggregateProvider"
 import Header from "@/components/(shared)/framing/header";
+import ThemeToggle from "@/providers/items/themeToggle";
 
 const montserrat = Montserrat_Alternates({
 	subsets: ["latin", "cyrillic"],
@@ -25,14 +28,17 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="ru" className={`${montserrat.className} ${roboto.className}`}>
-		<body
-			className="antialiased"
-		>
-		<div className="max-w-screen-xl mx-auto px-4">
-			<Header/>
-			{children}
-		</div>
+		<html lang="ru">
+		<body className={`antialiased ${montserrat.className} ${roboto.className}`}>
+		<AggregateProvider>
+			<div className="max-w-screen-xl mx-auto px-4">
+				<Header/>
+				{children}
+			</div>
+			<div className="fixed right-20 bottom-4 z-50">
+				<ThemeToggle/>
+			</div>
+		</AggregateProvider>
 		</body>
 		</html>
 	);
