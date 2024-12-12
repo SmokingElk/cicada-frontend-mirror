@@ -30,7 +30,7 @@ export default function RootLayout({
 			className="antialiased"
 		>
 		<div className="max-w-screen-xl mx-auto px-4">
-			<Header/>
+			<Header />
 			{children}
 		</div>
 		</body>
