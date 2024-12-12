@@ -2,9 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Nav() {
 	const pathname = usePathname();
+	const [currentPath, setCurrentPath] = useState("");
+
+	useEffect(() => {
+		setCurrentPath(pathname);
+	}, [pathname]);
 
 	const navLinks = [
 		{ href: "/", label: "Главная" },
@@ -13,12 +19,17 @@ export default function Nav() {
 		{ href: "/profile", label: "Профиль" },
 	];
 
-	const getClassName = (href: string) =>
-		`cursor-pointer px-3 py-2 rounded-md ${
-			pathname === href || pathname.includes(href)
+	const getClassName = (href: string) => {
+		const isActive = href === "/"
+			? currentPath === href
+			: currentPath.startsWith(href);
+
+		return `cursor-pointer px-3 py-2 rounded-md ${
+			isActive
 				? "hover:shadow-sm bg-background text-accent-foreground hover:bg-accent underline"
 				: "hover:bg-accent hover:text-accent-foreground"
 		}`;
+	};
 
 	return (
 		<nav className="h-full flex justify-center items-center space-x-8">
