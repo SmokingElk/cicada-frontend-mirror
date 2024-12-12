@@ -1,5 +1,7 @@
 import type { Config } from "tailwindcss";
 
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 export default {
     darkMode: ["class"],
     content: [
@@ -87,7 +89,11 @@ export default {
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
   			'accordion-up': 'accordion-up 0.2s ease-out'
-  		}
+  		},
+			fontFamily: {
+				montserrat: ['Montserrat', ...defaultTheme.fontFamily.sans],
+				roboto: ['Roboto', ...defaultTheme.fontFamily.sans],
+			}
   	}
   },
   plugins: [require("tailwindcss-animate")],
