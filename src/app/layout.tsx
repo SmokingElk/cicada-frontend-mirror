@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Montserrat, Roboto } from "next/font/google";
+import { Montserrat_Alternates, Roboto } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/(shared)/framing/header";
 
-const montserrat = Montserrat({
+const montserrat = Montserrat_Alternates({
 	subsets: ["latin", "cyrillic"],
 	weight: ["400", "500", "600", "700"],
 	display: "swap",
@@ -29,10 +29,8 @@ export default function RootLayout({
 		<body
 			className="antialiased bg-[#dedad7]"
 		>
-		<div className="max-w-screen-xl mx-auto px-4">
 			<Header/>
 			{children}
-		</div>
 		</body>
 		</html>
 	);
