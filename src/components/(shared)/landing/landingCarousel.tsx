@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useRef, useState, useEffect } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -11,14 +11,14 @@ import {
 } from "@/components/ui/carousel";
 
 export default function LandingCarousel() {
-	const plugin = React.useRef(
+	const plugin = useRef(
 		Autoplay({delay: 2000, stopOnInteraction: true})
 	);
 
-	const [selectedIndex, setSelectedIndex] = React.useState(0);
-	const [carouselApi, setCarouselApi] = React.useState<CarouselApi | null>(null);
+	const [selectedIndex, setSelectedIndex] = useState(0);
+	const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (!carouselApi) return;
 
 		setSelectedIndex(carouselApi.selectedScrollSnap());
@@ -37,7 +37,7 @@ export default function LandingCarousel() {
 				setApi={setCarouselApi}
 			>
 				<CarouselContent>
-					{Array.from({length: 5}).map((_, index) => (
+					{Array.from({length: 4}).map((_, index) => (
 						<CarouselItem key={index}>
 							<div className="p-1">
 								<Card>
@@ -53,14 +53,13 @@ export default function LandingCarousel() {
 
 			{/* Индикаторы */}
 			<div className="flex justify-center space-x-2 mt-4">
-				{Array.from({length: 5}).map((_, index) => (
+				{Array.from({length: 4}).map((_, index) => (
 					<button
 						key={index}
 						className={`h-5 w-5 rounded-full ${
 							index === selectedIndex ? "bg-[#8A5D31]" : "bg-[#232326]"
 						}`}
 						onClick={() => carouselApi?.scrollTo(index)}
-						aria-label={`Go to slide ${index + 1}`}
 					/>
 				))}
 			</div>
