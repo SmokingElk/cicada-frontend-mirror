@@ -37,6 +37,7 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    --header-height: 80px
   }
   .dark {
     --background: 240 10% 3.9%;
@@ -84,4 +85,8 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-montserrat;
   }
+}
+
+body {
+  padding-top: var(--header-height);
 }
