@@ -12,11 +12,18 @@ import {
 
 export default function LandingCarousel() {
 	const plugin = useRef(
-		Autoplay({delay: 2000, stopOnInteraction: true})
+		Autoplay({delay: 2000, stopOnInteraction: true, playOnInit: true})
 	);
 
 	const [selectedIndex, setSelectedIndex] = useState(0);
 	const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
+	const [slidesCount, setSlidesCount] = useState<number>(4);
+
+	useEffect(() => {
+		if (carouselApi) {
+			carouselApi.reInit();
+		}
+	}, [carouselApi, slidesCount]);
 
 	useEffect(() => {
 		if (!carouselApi) return;
@@ -30,14 +37,13 @@ export default function LandingCarousel() {
 
 	return (
 		<div className="w-full">
-			{/* Карусель */}
 			<Carousel
 				plugins={[plugin.current]}
 				className="w-full max-w-md mx-auto"
 				setApi={setCarouselApi}
 			>
 				<CarouselContent>
-					{Array.from({length: 4}).map((_, index) => (
+					{Array.from({length: slidesCount}).map((_, index) => (
 						<CarouselItem key={index}>
 							<div className="p-1">
 								<Card>
@@ -53,7 +59,7 @@ export default function LandingCarousel() {
 
 			{/* Индикаторы */}
 			<div className="flex justify-center space-x-2 mt-4">
-				{Array.from({length: 4}).map((_, index) => (
+				{Array.from({length: slidesCount}).map((_, index) => (
 					<button
 						key={index}
 						className={`h-5 w-5 rounded-full ${
