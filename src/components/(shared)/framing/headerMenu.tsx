@@ -27,7 +27,7 @@ export default function Nav() {
 		return `cursor-pointer px-3 py-2 rounded-md ${
 			isActive
 				? "hover:shadow-sm bg-background text-accent-foreground hover:bg-accent underline"
-				: "hover:bg-accent hover:text-accent-foreground"
+				: "hover:bg-accent hover:text-accent-foreground text-[#232326]/50"
 		}`;
 	};
 
