@@ -29,8 +29,10 @@ export default function RootLayout({
 		<body
 			className="antialiased bg-[#dedad7]"
 		>
+		<div className="max-w-screen-xl mx-auto px-4">
 			<Header/>
 			{children}
+		</div>
 		</body>
 		</html>
 	);
