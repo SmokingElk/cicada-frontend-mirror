@@ -27,7 +27,7 @@ export default function RootLayout({
 	return (
 		<html lang="ru" className={`${montserrat.className} ${roboto.className}`}>
 		<body
-			className="antialiased bg-[#dedad7]"
+			className="antialiased"
 		>
 		<div className="max-w-screen-xl mx-auto px-4">
 			<Header/>
