@@ -30,7 +30,7 @@ export default function LandingPage() {
 						<CustomSeparator direction="left" className="my-8 flex-1"/>
 						<CustomSeparator direction="left" className="my-8 flex-1"/>
 					</div>
-					<div className="flex flex-wrap justify-between items-start gap-y-8 mt-14 mb-28">
+					<div className="flex flex-wrap justify-between items-start gap-y-8 mt-14 mb-28 mx-20">
 						<LandingCard
 							title="1500+ партий"
 							description="Проанализировано нашими алгоритмами с целью выявления интересных моментов"

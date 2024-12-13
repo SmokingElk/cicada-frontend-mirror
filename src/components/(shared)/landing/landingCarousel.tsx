@@ -12,7 +12,7 @@ import {
 
 export default function LandingCarousel() {
 	const plugin = useRef(
-		Autoplay({delay: 2000, stopOnInteraction: true, playOnInit: true})
+		Autoplay({delay: 2000, stopOnInteraction: false, playOnInit: true})
 	);
 
 	const [selectedIndex, setSelectedIndex] = useState(0);
