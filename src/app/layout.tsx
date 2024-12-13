@@ -31,10 +31,8 @@ export default function RootLayout({
 		<html lang="ru">
 		<body className={`antialiased ${montserrat.className} ${roboto.className}`}>
 		<AggregateProvider>
-			<div className="max-w-screen-xl mx-auto px-4">
 				<Header/>
 				{children}
-			</div>
 			<div className="fixed right-20 bottom-4 z-50">
 				<ThemeToggle/>
 			</div>
