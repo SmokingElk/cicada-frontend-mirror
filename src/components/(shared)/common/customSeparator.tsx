@@ -13,7 +13,7 @@ export default function CustomSeparator({
 																				}: CustomSeparatorProps) {
 	return (
 		<div
-			className={cn("relative", className)}
+			className={cn("relative my-8", className)}
 			style={{ width: `${width}%` }}
 		>
 			<div className="border-t border-gray-800 w-full"></div>
