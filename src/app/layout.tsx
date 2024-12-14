@@ -5,6 +5,7 @@ import "./globals.css";
 import AggregateProvider from "@/providers/aggregateProvider"
 import Header from "@/components/(shared)/framing/header";
 import ThemeToggle from "@/providers/items/themeToggle";
+import Footer from "@/components/(shared)/framing/footer";
 
 const montserrat = Montserrat_Alternates({
 	subsets: ["latin", "cyrillic"],
@@ -33,6 +34,7 @@ export default function RootLayout({
 		<AggregateProvider>
 				<Header/>
 				{children}
+				<Footer />
 			<div className="fixed right-20 bottom-4 z-50">
 				<ThemeToggle/>
 			</div>

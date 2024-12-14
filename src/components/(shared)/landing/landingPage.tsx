@@ -53,7 +53,7 @@ export default function LandingPage() {
 					</div>
 				</Wrapper>
 			</section>
-			<section className="flex items-center">
+			<section className="flex items-center mb-28">
 				<Wrapper className="w-full">
 					<div className="mt-24 flex flex-col items-center w-full">
 						<div className="flex justify-between w-full items-start">
