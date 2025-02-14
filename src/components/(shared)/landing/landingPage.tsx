@@ -1,15 +1,38 @@
 import LandingCarousel from "./landingCarousel";
-import CustomSeparator from "@/components/(shared)/common/customSeparator";
+import LineSeparator from "@/components/(shared)/common/lineSeparator";
 import LandingCard from "@/components/(shared)/landing/landingCard";
 import Wrapper from "@/components/(shared)/common/wrapper";
 import Image from "next/image";
-import landingChessGrid from "@/../public/images/landingChessGrid.png";
-import landingGraphic from "@/../public/images/landingGraphic.png";
-import landingChessGrid2 from "@/../public/images/landingChessGrid2.png";
+import featureHints from "@/../public/images/featureHints.svg";
+import featureDynamics from "@/../public/images/featureDynamics.svg";
+import featureBestMoves from "@/../public/images/featureBestMoves.svg";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import PointSeparator from "../common/pointSeparator";
+import { ReactNode } from "react";
 
 export default function LandingPage() {
+  const features = [
+    {
+      description: "Получать подсказки о хороших ходах в реальном времени",
+      image: featureHints,
+    },
+    {
+      description:
+        "Анализировать уровень вашей игры и игры противника на протяжении всей партии",
+      image: featureDynamics,
+    },
+    {
+      description:
+        "Автоматически определять лучшие моменты для публикации их в ленте",
+      image: featureBestMoves,
+    },
+  ];
+
+  const featuresGridCols = new Array(features.length)
+    .fill("1fr")
+    .join("_20px_");
+
   return (
     <>
       <section className="h-screen flex items-center">
@@ -18,7 +41,7 @@ export default function LandingPage() {
             <h1 className="font-semibold text-5xl leading-tight">
               Слоган компании, который мы еще не придумали
             </h1>
-            <CustomSeparator />
+            <LineSeparator />
             <div className="text-xl leading-relaxed pt-20">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
               eleifend, nulla ut posuere maximus, diam eros mattis dui, ac
@@ -35,11 +58,11 @@ export default function LandingPage() {
           </div>
         </Wrapper>
       </section>
-      <section className="flex flex-col items-center w-full bg-[#cfccc9]">
+      <section className="flex flex-col items-center w-full bg-muted">
         <Wrapper className={"mt-14"}>
           <div className="flex flex-row justify-between gap-x-10 w-full">
-            <CustomSeparator direction="left" className="flex-1" />
-            <CustomSeparator direction="left" className="flex-1" />
+            <LineSeparator direction="left" className="flex-1" />
+            <LineSeparator direction="left" className="flex-1" />
           </div>
           <div className="flex flex-wrap justify-between items-start gap-y-8 mt-14 mb-28 mx-20">
             <LandingCard
@@ -63,63 +86,49 @@ export default function LandingPage() {
       <section className="flex items-center mb-28">
         <Wrapper className="w-full">
           <div className="mt-24 flex flex-col items-center w-full">
-            <div className="flex justify-between w-full items-start">
-              <div className="w-1/3 text-xl text-center">
-                Получать подсказки о хороших ходах в реальном времени
-              </div>
+            <div
+              className={`grid grid-cols-[${featuresGridCols}] gap-y-8 justify-between w-full items-start justify-items-center`}
+            >
+              {features.reduce((acc, { description }, index) => {
+                acc.push(
+                  <div key={index * 2} className="w-2/3 text-xl text-center">
+                    {description}
+                  </div>
+                );
 
-              <div className="flex items-center justify-center w-1/6">
-                <div className="w-4 h-4 rotate-45 bg-gray-800 my-8"></div>
-              </div>
+                if (index != features.length - 1) {
+                  acc.push(
+                    <PointSeparator
+                      key={index * 2 + 1}
+                      width={"full"}
+                      height={20}
+                    />
+                  );
+                }
 
-              <div className="w-1/3 text-xl text-center">
-                Анализировать уровень вашей игры и игры противника на протяжении
-                всей партии
-              </div>
+                return acc;
+              }, [] as ReactNode[])}
 
-              <div className="flex items-center justify-center w-1/6">
-                <div className="w-4 h-4 rotate-45 bg-gray-800 my-8"></div>
-              </div>
+              {features.reduce((acc, { image }, index) => {
+                acc.push(
+                  <div
+                    key={`feature_image_${index}`}
+                    className={`w-full h-[400px] relative`}
+                  >
+                    <Image
+                      src={image}
+                      alt="grid"
+                      layout="fill"
+                      objectFit="contain"
+                    />
+                  </div>
+                );
 
-              <div className="w-1/3 text-xl text-center">
-                Автоматически определять лучшие моменты для публикации их в
-                ленте
-              </div>
-            </div>
+                if (index != features.length - 1)
+                  acc.push(<div key={`feature_image_sep_${index}`}></div>);
 
-            <div className="flex justify-between w-full mt-8">
-              <div className="w-1/3 h-[400px] flex items-center justify-center">
-                <div className="w-full h-full relative">
-                  <Image
-                    src={landingChessGrid}
-                    alt="grid"
-                    layout="fill"
-                    objectFit="contain"
-                  />
-                </div>
-              </div>
-
-              <div className="w-1/3 h-[400px] flex items-center justify-center">
-                <div className="w-full h-full relative">
-                  <Image
-                    src={landingGraphic}
-                    alt="graphic"
-                    layout="fill"
-                    objectFit="contain"
-                  />
-                </div>
-              </div>
-
-              <div className="w-1/3 h-[400px] flex items-center justify-center">
-                <div className="w-full h-full relative">
-                  <Image
-                    src={landingChessGrid2}
-                    alt="grid2"
-                    layout="fill"
-                    objectFit="contain"
-                  />
-                </div>
-              </div>
+                return acc;
+              }, [] as ReactNode[])}
             </div>
           </div>
         </Wrapper>
