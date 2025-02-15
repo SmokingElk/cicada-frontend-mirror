@@ -29,10 +29,6 @@ export default function LandingPage() {
     },
   ];
 
-  const featuresGridCols = new Array(features.length)
-    .fill("1fr")
-    .join("_20px_");
-
   return (
     <>
       <section className="h-screen flex items-center">
@@ -87,7 +83,7 @@ export default function LandingPage() {
         <Wrapper className="w-full">
           <div className="mt-24 flex flex-col items-center w-full">
             <div
-              className={`grid grid-cols-[${featuresGridCols}] gap-y-8 justify-between w-full items-start justify-items-center`}
+              className={`grid grid-cols-[1fr_20px_1fr_20px_1fr] gap-y-8 justify-between w-full items-start justify-items-center`}
             >
               {features.reduce((acc, { description }, index) => {
                 acc.push(
