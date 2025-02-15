@@ -11,12 +11,14 @@ const montserrat = Montserrat_Alternates({
 	subsets: ["latin", "cyrillic"],
 	weight: ["400", "500", "600", "700"],
 	display: "swap",
+	variable: "--font-heading"
 });
 
 const roboto = Roboto({
 	subsets: ["latin", "cyrillic"],
 	weight: ["400", "500", "700"],
 	display: "swap",
+	variable: "--font-main"
 });
 
 export const metadata: Metadata = {
