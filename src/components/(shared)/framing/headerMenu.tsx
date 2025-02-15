@@ -15,7 +15,7 @@ export default function Nav() {
   const navLinks = [
     { href: "/", label: "Главная" },
     { href: "/game", label: "Игра" },
-    { href: "/profile", label: "Профиль" },
+    { href: "/profile/info", label: "Профиль" },
   ];
 
   const getClassName = (href: string) => {

@@ -17,7 +17,7 @@ export default function LineSeparator({
       className={cn("relative my-8", className)}
       style={{ width: `${width}%` }}
     >
-      <div className="border-t border-foreground w-full"></div>
+      <div className="border-t-[2px] border-foreground w-full"></div>
       <RhombusDecor
         className={cn(
           "absolute top-1/2 -translate-y-1/2",
