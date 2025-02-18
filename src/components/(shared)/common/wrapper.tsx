@@ -1,10 +1,7 @@
-import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
-import { Styleable } from "@/lib/types";
+import { Styleable, WithChildren } from "@/lib/types";
 
-interface WrapperProps extends Styleable {
-  children: ReactNode;
-}
+interface WrapperProps extends Styleable, WithChildren {}
 
 export default function Wrapper({ children, className }: WrapperProps) {
   return (

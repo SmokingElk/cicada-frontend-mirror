@@ -1,6 +1,6 @@
 import { Styleable } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import RhombusDecor from "./rhombusDecor";
+import RhombusDecor from "@/components/(shared)/common/rhombusDecor";
 
 interface LineSeparatorProps extends Styleable {
   width?: number; // Ширина в процентах
@@ -17,7 +17,7 @@ export default function LineSeparator({
       className={cn("relative my-8", className)}
       style={{ width: `${width}%` }}
     >
-      <div className="border-t border-foreground w-full"></div>
+      <div className="border-t-[2px] border-foreground w-full"></div>
       <RhombusDecor
         className={cn(
           "absolute top-1/2 -translate-y-1/2",
