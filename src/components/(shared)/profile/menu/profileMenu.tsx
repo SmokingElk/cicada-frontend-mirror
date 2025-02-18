@@ -1,18 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import RhombusDecor from "../common/rhombusDecor";
+import RhombusDecor from "../../common/rhombusDecor";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Styleable } from "@/lib/types";
+import menuItems from "../../../../hardcode/profileMenuItems";
 
 export default function ProfileMenu({ className = "" }: Styleable) {
   const pathname = usePathname();
-
-  const menuItems = [
-    { href: "/profile/info", text: "Профиль" },
-    { href: "/profile/stats", text: "Статистика" },
-  ];
 
   let activeIndex = menuItems.findIndex((e) => pathname.includes(e.href));
 

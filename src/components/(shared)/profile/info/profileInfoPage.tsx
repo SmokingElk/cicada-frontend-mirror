@@ -1,5 +1,5 @@
 import Wrapper from "../../common/wrapper";
-import ProfileMenu from "../profileMenu";
+import ProfileMenu from "../menu/profileMenu";
 import ProfileInfo from "./profileInfo";
 
 export default function ProfileInfoPage() {

@@ -4,7 +4,7 @@ import { useState } from "react";
 import LineSeparator from "../../common/lineSeparator";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import AvatarPlaceholder from "@/../public/images/avatarPlaceholder.png";
+import AvatarPlaceholder from "@/../public/avatars/avatarPlaceholder.png";
 
 export default function profileInfoContent() {
   const [username, setUsername] = useState("playerNickname");
