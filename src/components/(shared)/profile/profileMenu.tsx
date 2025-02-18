@@ -10,8 +10,8 @@ export default function ProfileMenu({ className = "" }: Styleable) {
   const pathname = usePathname();
 
   const menuItems = [
-    { href: "/info", text: "Профиль" },
-    { href: "/stats", text: "Статистика" },
+    { href: "/profile/info", text: "Профиль" },
+    { href: "/profile/stats", text: "Статистика" },
   ];
 
   let activeIndex = menuItems.findIndex((e) => pathname.includes(e.href));
@@ -39,7 +39,7 @@ export default function ProfileMenu({ className = "" }: Styleable) {
 
       <div
         className="transition-all"
-        style={{ gridColumnStart: `${activeIndex}` }}
+        style={{ gridColumnStart: `${activeIndex + 1}` }}
       >
         <RhombusDecor />
       </div>

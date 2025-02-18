@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import LineSeparator from "../common/lineSeparator";
+import LineSeparator from "../../common/lineSeparator";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import AvatarPlaceholder from "@/../public/images/avatarPlaceholder.png";
