@@ -1,6 +1,6 @@
 import { Styleable, WithChildren } from "@/lib/types";
-import RhombusDecor from "./rhombusDecor";
 import { cn } from "@/lib/utils";
+import RhombusDecor from "@/components/(shared)/common/rhombusDecor";
 
 interface DecoratedTileProps extends Styleable, WithChildren {}
 

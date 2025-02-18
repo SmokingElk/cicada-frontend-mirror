@@ -1,6 +1,6 @@
 import Link from "next/link";
-import DecoratedTile from "../../common/decoratedTile";
-import LineSeparator from "../../common/lineSeparator";
+import DecoratedTile from "@/components/(shared)/common/decoratedTile";
+import LineSeparator from "@/components/(shared)/common/lineSeparator";
 
 export default function ProfileStats() {
   const moments = [

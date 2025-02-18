@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import LineSeparator from "../../common/lineSeparator";
-import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
+import LineSeparator from "@/components/(shared)/common/lineSeparator";
 import AvatarPlaceholder from "@/../public/avatars/avatarPlaceholder.png";
 
 export default function profileInfoContent() {

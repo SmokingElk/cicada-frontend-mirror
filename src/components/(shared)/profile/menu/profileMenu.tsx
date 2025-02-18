@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import RhombusDecor from "../../common/rhombusDecor";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
 import { Styleable } from "@/lib/types";
-import menuItems from "../../../../hardcode/profileMenuItems";
+import { cn } from "@/lib/utils";
+import menuItems from "@/hardcode/profileMenuItems";
+import RhombusDecor from "@/components/(shared)/common/rhombusDecor";
 
 export default function ProfileMenu({ className = "" }: Styleable) {
   const pathname = usePathname();

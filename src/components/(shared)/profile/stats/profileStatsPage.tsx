@@ -1,6 +1,6 @@
-import Wrapper from "../../common/wrapper";
-import ProfileMenu from "../menu/profileMenu";
-import ProfileStats from "./profileStats";
+import Wrapper from "@/components/(shared)/common/wrapper";
+import ProfileMenu from "@/components/(shared)/profile/menu/profileMenu";
+import ProfileStats from "@/components/(shared)/profile/stats/profileStats";
 
 export default function ProfileStatsPage() {
   return (

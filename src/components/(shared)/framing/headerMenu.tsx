@@ -1,10 +1,10 @@
 "use client";
 
-import headerMenuItems from "@/hardcode/headerMenuItems";
-import { HeaderMenuItemT } from "@/hardcode/headerMenuItems";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import headerMenuItems from "@/hardcode/headerMenuItems";
+import { HeaderMenuItemT } from "@/hardcode/headerMenuItems";
 
 export default function Nav() {
   const pathname = usePathname();

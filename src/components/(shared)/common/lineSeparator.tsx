@@ -1,6 +1,6 @@
 import { Styleable } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import RhombusDecor from "./rhombusDecor";
+import RhombusDecor from "@/components/(shared)/common/rhombusDecor";
 
 interface LineSeparatorProps extends Styleable {
   width?: number; // Ширина в процентах
