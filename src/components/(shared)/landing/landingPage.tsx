@@ -18,7 +18,7 @@ import {ReactNode} from "react";
 import {useTheme} from "next-themes";
 
 export default function LandingPage() {
-    const {theme, setTheme} = useTheme();
+    const {theme} = useTheme();
     const featureHints = theme === "dark" ? featureHintsDark : featureHintsLight;
     const featureDynamics = theme === "dark" ? featureDynamicsDark : featureDynamicsLight;
     const featureBestMoves = theme === "dark" ? featureBestMovesDark : featureBestMovesLight;
@@ -56,7 +56,7 @@ export default function LandingPage() {
                             vel sodales justo, sit amet rhoncus augue.
                         </div>
                         <Button className="w-1/2" variant="transparrent" size="xl" asChild>
-                            <Link href="/game">Играть</Link>
+                            <Link href="/">Играть</Link>
                         </Button>
                     </div>
                     <div className="w-1/2">

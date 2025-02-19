@@ -10,7 +10,7 @@ import {useTheme} from "next-themes";
 
 
 export default function Header() {
-	const {theme, setTheme } = useTheme();
+	const {theme} = useTheme();
 	const logo = theme === "dark" ? logoDark : logoLight;
 	return (
 		<header className="fixed top-0 left-0 right-0 h-[var(--header-height)] z-40 w-full bg-background">

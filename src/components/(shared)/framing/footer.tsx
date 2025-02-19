@@ -9,7 +9,7 @@ import TGIconDark from "@/../public/tgDark.svg";
 import {useTheme} from "next-themes";
 
 export default function Footer() {
-    const {theme, setTheme} = useTheme();
+    const {theme} = useTheme();
     const VKIcon = theme === "dark" ? VKIconDark : VKIconLight;
     const TGIcon = theme === "dark" ? TGIconDark : TGIconLight;
     return (
