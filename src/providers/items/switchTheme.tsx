@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 
 interface SwitchProps extends React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root> {
 	icons?: { checked: React.ReactNode; unchecked: React.ReactNode };
+	theme?: "light" | "dark";
 }
 
 const SwitchTheme = React.forwardRef<
