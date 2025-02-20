@@ -2,10 +2,10 @@
 
 import Wrapper from "@/components/(shared)/common/wrapper";
 import Link from "next/link";
-import VKIconLight from "../../../../public/vkLight.svg";
-import TGIconLight from "../../../../public/tgLight.svg";
-import VKIconDark from "@/../public/vkDark.svg";
-import TGIconDark from "@/../public/tgDark.svg";
+import VKIconLight from "../../../../public/icons/lightTheme/vkLight.svg";
+import TGIconLight from "../../../../public/icons/lightTheme/tgLight.svg";
+import VKIconDark from "../../../../public/icons/darkTheme/vkDark.svg";
+import TGIconDark from "../../../../public/icons/darkTheme/tgDark.svg";
 import {useTheme} from "next-themes";
 
 export default function Footer() {
