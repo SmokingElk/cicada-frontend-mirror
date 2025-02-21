@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image"
-import logoLight from "../../../../public/icons/lightTheme/logoLight.svg"
-import logoDark from "../../../../public/icons/darkTheme/logoDark.svg"
+import logoLight from "@/../public/icons/lightTheme/logoLight.svg"
+import logoDark from "@/../public/icons/darkTheme/logoDark.svg"
 import Wrapper from "@/components/(shared)/common/wrapper"
 
 import HeaderMenu from "@/components/(shared)/framing/headerMenu";
