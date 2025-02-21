@@ -1,6 +1,6 @@
 "use client";
 
-import LandingCarousel from "./landingCarousel";
+import LandingCarousel from "@/components/(shared)/landing/landingCarousel";
 import LineSeparator from "@/components/(shared)/common/lineSeparator";
 import LandingCard from "@/components/(shared)/landing/landingCard";
 import Wrapper from "@/components/(shared)/common/wrapper";
@@ -13,7 +13,7 @@ import featureBestMovesLight from "@/../public/images/lightTheme/featureBestMove
 import featureBestMovesDark from "@/../public/images/darkTheme/featureBestMovesDark.svg";
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
-import PointSeparator from "../common/pointSeparator";
+import PointSeparator from "@/components/(shared)/common/pointSeparator";
 import {ReactNode} from "react";
 import {useTheme} from "next-themes";
 
