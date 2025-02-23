@@ -6,10 +6,10 @@ import HeaderMenu from "@/components/(shared)/framing/headerMenu";
 
 export default function Header() {
 	return (
-		<header className="fixed top-0 left-0 right-0 h-[var(--header-height)] z-40 w-full bg-background">
+		<header className="fixed top-0 left-0 right-0 h-[var(--header-height)] z-40 w-full mx-auto bg-background">
 			<Wrapper className="flex flex-row items-center justify-between py-4">
 				<div className="flex items-center">
-					<Image src={logo} alt="Logo" width={40} height={36}/>
+					<Image src={logo} alt="Logo" className="h-1/3 md:h-auto" width={40} height={36}/>
 					<h1 className="text-2xl ml-5 font-bold">Cicada Chess</h1>
 				</div>
 				<HeaderMenu/>
