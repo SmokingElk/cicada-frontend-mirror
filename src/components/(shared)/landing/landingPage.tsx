@@ -46,7 +46,7 @@ export default function LandingPage() {
               vel sodales justo, sit amet rhoncus augue.
             </div>
             <Button className="w-1/2" variant="transparrent" size="xl" asChild>
-              <Link href="/game">Играть</Link>
+              <Link href="/">Играть</Link>
             </Button>
           </div>
           <div className="w-full md:w-1/2">
