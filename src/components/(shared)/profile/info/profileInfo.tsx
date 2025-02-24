@@ -15,7 +15,7 @@ export default function profileInfoContent() {
   const [avatar, setAvatar] = useState(AvatarPlaceholder);
 
   return (
-      <div className="flex gap-4 justify-stretch">
+      <div className="flex flex-col-reverse md:flex-row gap-4 justify-stretch">
         <div className="w-full">
           <div className="w-full">
             <input
@@ -45,7 +45,7 @@ export default function profileInfoContent() {
               onChange={(e) => setDescription(e.target.value)}
           ></textarea>
         </div>
-        <div className="hidden w-full md:flex justify-center">
+        <div className="w-full hidden md:flex justify-center">
           <div className="w-[300px] h-[300px]">
             <Image
                 src={avatar}
@@ -57,12 +57,12 @@ export default function profileInfoContent() {
             />
           </div>
         </div>
-        <div className="md:hidden w-full flex justify-end">
-          <div className="w-[150px] h-[150px]">
+        <div className="md:hidden w-full flex justify-center">
+          <div className="w-[200px] h-[200px]">
             <Image
                 src={avatar}
-                width={150}
-                height={150}
+                width={200}
+                height={200}
                 objectFit="cover"
                 alt="avatar"
                 className="rounded-full"
