@@ -19,49 +19,47 @@ export default function GameOpponentsInfo({className = ""}: Styleable) {
     const [avatar, setAvatar] = useState(AvatarPlaceholder);
     const [avatarOpponent, setAvatarOpponent] = useState(AvatarOpponentPlaceholder);
 
-    return (<div className={cn("w-full flex flex-col justify-center", className)}>{
-            <>
-                <div className="w-full flex flex-row text-xl text-foreground font-roboto justify-center">
-                    {username}
-                    <RhombusDecor className="bg-primary size-3 mx-2 mt-2"/>
-                    {rating}
-                </div>
+    return (<div className={cn("w-full flex flex-col justify-center", className)}>
+            <div className="w-full flex flex-row text-xl text-foreground font-roboto justify-center">
+                {username}
+                <RhombusDecor className="bg-primary size-3 mx-2 mt-2"/>
+                {rating}
+            </div>
 
-                <section className="flex flex-row justify-center">
-                    <div className="w-full flex justify-center">
-                        <div className="w-[80px] h-[80px]">
-                            <Image
-                                src={avatar}
-                                width={80}
-                                height={80}
-                                objectFit="cover"
-                                alt="avatar"
-                                className="rounded-full"
-                            />
-                        </div>
+            <section className="flex flex-row justify-center">
+                <div className="w-full flex justify-center">
+                    <div className="w-[80px] h-[80px]">
+                        <Image
+                            src={avatar}
+                            width={80}
+                            height={80}
+                            objectFit="cover"
+                            alt="avatar"
+                            className="rounded-full"
+                        />
                     </div>
-                    <div className="relative mt-7 flex flex-row">
-                        <div className="absolute w-0.5 h-28 bg-black rotate-45 translate-x-6 -translate-y-11"></div>
-                        <RhombusDecor className="size-5 mx-4"/>
-                    </div>
-                    <div className="w-full flex justify-center">
-                        <div className="w-[80px] h-[80px]">
-                            <Image
-                                src={avatarOpponent}
-                                width={80}
-                                height={80}
-                                objectFit="cover"
-                                alt="avatarOpponent"
-                                className="rounded-full"
-                            />
-                        </div>
-                    </div>
-                </section>
-
-                <div className="w-full flex flex-row text-xl text-foreground font-roboto justify-center">
-                    {usernameOpponent} <RhombusDecor className="bg-primary size-3 mx-2 mt-2"/> {ratingOpponent}
                 </div>
-            </>
-        }</div>
+                <div className="relative mt-7 flex flex-row">
+                    <div className="absolute w-0.5 h-28 bg-black rotate-45 translate-x-6 -translate-y-11"></div>
+                    <RhombusDecor className="size-5 mx-4"/>
+                </div>
+                <div className="w-full flex justify-center">
+                    <div className="w-[80px] h-[80px]">
+                        <Image
+                            src={avatarOpponent}
+                            width={80}
+                            height={80}
+                            objectFit="cover"
+                            alt="avatarOpponent"
+                            className="rounded-full"
+                        />
+                    </div>
+                </div>
+            </section>
+
+            <div className="w-full flex flex-row text-xl text-foreground font-roboto justify-center">
+                {usernameOpponent} <RhombusDecor className="bg-primary size-3 mx-2 mt-2"/> {ratingOpponent}
+            </div>
+        </div>
     );
 }
