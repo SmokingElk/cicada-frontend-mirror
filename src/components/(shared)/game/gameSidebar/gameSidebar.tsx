@@ -1,9 +1,13 @@
+"use client";
+
 import { Styleable } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import PointSeparator from "../../common/pointSeparator";
 import RhombusDecor from "../../common/rhombusDecor";
+import { useState } from "react";
 
 export default function GameSidebar({ className = "" }: Styleable) {
+  const [currentItem, setCurrentItem] = useState(0);
+
   const moves = [
     { piece: "пешка", from: "E2", to: "E4" },
     { piece: "пешка", from: "E7", to: "E5" },
@@ -11,10 +15,41 @@ export default function GameSidebar({ className = "" }: Styleable) {
     { piece: "король", from: "E1", to: "E2" },
   ];
 
+  const items = [{ name: "История ходов" }, { name: "Бот помошник" }];
+
   return (
-    <div className={cn("w-full h-full", className)}>
+    <div className={cn("w-full h-full flex flex-col gap-12", className)}>
+      <div
+        className="grid grid-rows-[0_0] w-full h-0 border-b-2 border-foreground"
+        style={{ gridTemplateColumns: `repeat(${items.length}, auto)` }}
+      >
+        {items.map((e, index) => (
+          <div
+            className="relative flex justify-center"
+            key={`game_sidebar_item_${index}`}
+          >
+            <div
+              className={cn(
+                "absolute bottom-4 font-roboto text-base text-foreground",
+                index === currentItem ? "opacity-100" : "opacity-50",
+                "hover:opacity-100 transition-all cursor-pointer"
+              )}
+              onClick={() => setCurrentItem(index)}
+            >
+              {e.name}
+            </div>
+          </div>
+        ))}
+
+        <div
+          className="w-full flex justify-center items-center transition-all"
+          style={{ gridColumnStart: currentItem + 1 }}
+        >
+          <RhombusDecor />
+        </div>
+      </div>
       <div className="flex h-full overflow-y-auto border-box">
-        <div className="flex gap-5 flex-col w-1/5 border-r-2 border-foreground">
+        <div className="flex gap-5 flex-col items-center w-1/5 border-r-2 border-foreground box-border pt-2">
           {moves.map((e, index) => (
             <div
               key={`move_indicator_${index}`}
@@ -30,7 +65,7 @@ export default function GameSidebar({ className = "" }: Styleable) {
           ))}
         </div>
 
-        <div className="flex flex-col gap-5 w-2/5 border-r-2 border-foreground">
+        <div className="flex flex-col gap-5 w-2/5 border-r-2 border-foreground box-border pt-2">
           {moves.map((e, index) => (
             <div
               key={`move_piece_${index}`}
@@ -41,7 +76,7 @@ export default function GameSidebar({ className = "" }: Styleable) {
           ))}
         </div>
 
-        <div className="flex flex-col gap-5 w-1/5 border-r-2 border-foreground">
+        <div className="flex flex-col gap-5 w-1/5 border-r-2 border-foreground box-border pt-2">
           {moves.map((e, index) => (
             <div
               key={`move_from_${index}`}
@@ -52,7 +87,7 @@ export default function GameSidebar({ className = "" }: Styleable) {
           ))}
         </div>
 
-        <div className="flex flex-col gap-5 w-1/5 border-r-2 border-foreground">
+        <div className="flex flex-col gap-5 w-1/5 box-border pt-2">
           {moves.map((e, index) => (
             <div
               key={`move_to_${index}`}
