@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 
 export default function GameBoard({ className = "" }: Styleable) {
   const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
+  const canvasSizeRef = useRef(canvasSize);
   const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>(null);
   const [isRendering, setIsRendering] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -35,6 +36,10 @@ export default function GameBoard({ className = "" }: Styleable) {
   }, [canvasRef.current]);
 
   useEffect(() => {
+    canvasSizeRef.current = canvasSize;
+  }, [canvasSize]);
+
+  useEffect(() => {
     if (ctx === null || isRendering) return;
     setIsRendering(true);
 
@@ -42,6 +47,7 @@ export default function GameBoard({ className = "" }: Styleable) {
 
     const render = () => {
       try {
+        const canvasSize = canvasSizeRef.current;
         gameRenderer.render({
           ctx,
           width: canvasSize.width,
@@ -61,12 +67,13 @@ export default function GameBoard({ className = "" }: Styleable) {
     return () => cancelAnimationFrame(requestId);
   }, [ctx]);
 
+  useEffect(() => {
+    window.addEventListener("resize", updateCanvasSize);
+    return () => window.removeEventListener("resize", updateCanvasSize);
+  }, []);
+
   return (
-    <div
-      ref={wrapperRef}
-      onResize={updateCanvasSize}
-      className={cn("w-full aspect-square", className)}
-    >
+    <div ref={wrapperRef} className={cn("w-full aspect-square", className)}>
       <canvas
         ref={canvasRef}
         className="w-full h-full"
