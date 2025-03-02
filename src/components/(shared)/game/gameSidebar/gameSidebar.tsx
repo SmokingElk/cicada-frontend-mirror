@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Styleable } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import gameSidebarMenuItems from "@/hardcode/gameSidebarMenuItems";
 import RhombusDecor from "@/components/(shared)/common/rhombusDecor";
 
 export default function GameSidebar({ className = "" }: Styleable) {
@@ -15,15 +16,15 @@ export default function GameSidebar({ className = "" }: Styleable) {
     { piece: "король", from: "E1", to: "E2" },
   ];
 
-  const items = [{ name: "История ходов" }, { name: "Бот помошник" }];
-
   return (
     <div className={cn("w-full h-full flex flex-col gap-12", className)}>
       <div
         className="grid grid-rows-[0_0] w-full h-0 border-b-2 border-foreground"
-        style={{ gridTemplateColumns: `repeat(${items.length}, auto)` }}
+        style={{
+          gridTemplateColumns: `repeat(${gameSidebarMenuItems.length}, auto)`,
+        }}
       >
-        {items.map((e, index) => (
+        {gameSidebarMenuItems.map((e, index) => (
           <div
             className="relative flex justify-center"
             key={`game_sidebar_item_${index}`}
