@@ -1,9 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { Styleable } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import RhombusDecor from "../../common/rhombusDecor";
-import { useState } from "react";
+import RhombusDecor from "@/components/(shared)/common/rhombusDecor";
 
 export default function GameSidebar({ className = "" }: Styleable) {
   const [currentItem, setCurrentItem] = useState(0);

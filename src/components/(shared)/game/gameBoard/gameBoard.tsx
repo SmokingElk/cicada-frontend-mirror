@@ -1,9 +1,9 @@
 "use client";
 
-import GameRenderer from "@/graphics/gameRenderer/GameRenderer";
-import { Styleable } from "@/lib/types";
-import { cn } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
+import { Styleable } from "@/lib/types";
+import GameRenderer from "@/graphics/gameRenderer/GameRenderer";
 
 export default function GameBoard({ className = "" }: Styleable) {
   const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
@@ -25,7 +25,10 @@ export default function GameBoard({ className = "" }: Styleable) {
     if (wrapperRef.current == null) return;
 
     const wrapperRect = wrapperRef.current.getBoundingClientRect();
-    setCanvasSize({ width: wrapperRect.width, height: wrapperRect.height });
+    setCanvasSize({
+      width: Math.floor(wrapperRect.width),
+      height: Math.floor(wrapperRect.height),
+    });
   };
 
   useEffect(updateCanvasSize, [wrapperRef.current]);

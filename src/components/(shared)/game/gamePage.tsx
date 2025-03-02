@@ -1,8 +1,8 @@
-import Wrapper from "../common/wrapper";
-import GameBoard from "./gameBoard/gameBoard";
-import GameHeader from "./gameHeader/gameHeader";
-import GameNav from "./gameNav/gameNav";
-import GameSidebar from "./gameSidebar/gameSidebar";
+import Wrapper from "@/components/(shared)/common/wrapper";
+import GameBoard from "@/components/(shared)/game/gameBoard/gameBoard";
+import GameHeader from "@/components/(shared)/game/gameHeader/gameHeader";
+import GameNav from "@/components/(shared)/game/gameNav/gameNav";
+import GameSidebar from "@/components/(shared)/game/gameSidebar/gameSidebar";
 
 export default function GamePage() {
   return (

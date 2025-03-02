@@ -1,7 +1,7 @@
 import { Styleable } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import GameOpponentsInfo from "./gameOpponentsInfo";
-import GameAdvantageChart from "./gameAdvantageChart";
+import GameOpponentsInfo from "@/components/(shared)/game/gameHeader/gameOpponentsInfo";
+import GameAdvantageChart from "@/components/(shared)/game/gameHeader/gameAdvantageChart";
 
 export default function GameHeader({ className = "" }: Styleable) {
   return (

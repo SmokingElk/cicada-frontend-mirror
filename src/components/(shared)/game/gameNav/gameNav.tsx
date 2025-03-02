@@ -1,7 +1,7 @@
 "use client";
 
-import { Styleable } from "@/lib/types";
 import Link from "next/link";
+import { Styleable } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 

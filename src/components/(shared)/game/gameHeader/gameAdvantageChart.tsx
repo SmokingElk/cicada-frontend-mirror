@@ -1,9 +1,9 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { Styleable } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import RhombusDecor from "../../common/rhombusDecor";
-import { useEffect, useRef, useState } from "react";
+import RhombusDecor from "@/components/(shared)/common/rhombusDecor";
 
 const barWidthPx = 18;
 const barSpacingPx = 8;
