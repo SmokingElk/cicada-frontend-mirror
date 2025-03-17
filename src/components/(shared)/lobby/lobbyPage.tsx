@@ -6,7 +6,7 @@ import LobbySearch from "./lobbySearch/lobbySearch";
 
 export default function LobbyPage() {
   return (
-    <Wrapper className="w-full h-screen grid grid-cols-[2fr_1fr] mb-10">
+    <Wrapper className="w-full h-auto grid grid-cols-[2fr_1fr] mb-10">
       <div className="w-full h-full flex flex-col border-r-[2px] border-foreground">
         <LobbySearch className="h-20 border-b-[2px] border-foreground" />
         <LobbyList className="h-full" />

@@ -72,7 +72,7 @@ export default function LobbyCreate({ className = "" }: Styleable) {
 
       <div
         className={cn(
-          "absolute top-full w-full h-full grid grid-rows-[1fr_100px] gap-3 transition-all duration-700",
+          "absolute top-full w-full auto grid grid-rows-[auto_100px] gap-3 transition-all duration-700",
           createOpen ? "top-0" : ""
         )}
       >
