@@ -94,3 +94,6 @@
     }
 }
 
+.clip-path-triangle {
+    clip-path: polygon(00% 50%, 50% 0%, 50% 100%);
+}

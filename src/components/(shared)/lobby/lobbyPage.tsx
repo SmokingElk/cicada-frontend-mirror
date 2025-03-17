@@ -11,7 +11,7 @@ export default function LobbyPage() {
         <LobbySearch className="h-20 border-b-[2px] border-foreground" />
         <LobbyList className="h-full" />
       </div>
-      <div className="w-full flex flex-col">
+      <div className="w-full flex flex-col box-border pl-[10px] gap-10 justify-between">
         <LobbyFilters />
         <LobbyCreate />
       </div>
