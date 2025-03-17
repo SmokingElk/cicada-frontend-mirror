@@ -1,9 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { SliderDouble } from "@/components/ui/slider-double";
 import { Styleable } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
 
 export default function LobbyFilters({ className = "" }: Styleable) {
   const rateMin = 0;

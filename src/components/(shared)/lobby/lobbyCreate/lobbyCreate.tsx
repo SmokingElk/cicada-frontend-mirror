@@ -1,14 +1,13 @@
 "use client";
 
+import { useState } from "react";
+import Link from "next/link";
+import { X } from "lucide-react";
+import { Slider } from "@/components/ui/slider";
+import { Button } from "@/components/ui/button";
 import { Styleable } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
-import LineSeparator from "../../common/lineSeparator";
-import { Slider } from "@/components/ui/slider";
-import RhombusDecor from "../../common/rhombusDecor";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { Cross, X } from "lucide-react";
+import RhombusDecor from "@/components/(shared)/common/rhombusDecor";
 
 const formatTime = (seconds: number) => {
   const mins = Math.floor(seconds / 60)

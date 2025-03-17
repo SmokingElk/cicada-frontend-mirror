@@ -1,8 +1,8 @@
-import Wrapper from "../common/wrapper";
-import LobbyCreate from "./lobbyCreate/lobbyCreate";
-import LobbyFilters from "./lobbyFilters/lobbyFilters";
-import LobbyList from "./lobbyList/lobbyList";
-import LobbySearch from "./lobbySearch/lobbySearch";
+import Wrapper from "@/components/(shared)/common/wrapper";
+import LobbyCreate from "@/components/(shared)/lobby/lobbyCreate/lobbyCreate";
+import LobbyFilters from "@/components/(shared)/lobby/lobbyFilters/lobbyFilters";
+import LobbyList from "@/components/(shared)/lobby/lobbyList/lobbyList";
+import LobbySearch from "@/components/(shared)/lobby/lobbySearch/lobbySearch";
 
 export default function LobbyPage() {
   return (
