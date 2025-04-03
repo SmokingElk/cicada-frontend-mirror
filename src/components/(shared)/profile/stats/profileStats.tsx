@@ -41,9 +41,9 @@ export default function ProfileStats() {
           ))}
         </div>
       </div>
-      <div className="w-full pt-4 md:pt-0">
+      <div className="w-full px-3 pt-4 pb-6 md:pt-0">
         <LineSeparator direction="left" width={100} />
-        <div className="w-2/3 mx-auto">
+        <div className="w-full md:w-2/3 mx-auto">
           <div className="font-montserrat font-semibold text-3xl text-foreground mb-9">
             Статистика игр:
           </div>

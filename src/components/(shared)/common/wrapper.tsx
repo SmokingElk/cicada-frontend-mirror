@@ -7,7 +7,7 @@ export default function Wrapper({ children, className }: WrapperProps) {
   return (
     <div
       className={cn(
-        "max-w-screen-xl px-3 md:px-10 lg:px-16 mx-auto",
+        "px-3 w-screen md:max-w-screen-md md:px-10 lg:max-w-screen-lg lg:px-16 mx-auto",
         className
       )}
     >
