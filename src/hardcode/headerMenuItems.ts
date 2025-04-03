@@ -6,7 +6,7 @@ export interface HeaderMenuItemT {
 
 const headerMenuItems = [
   { href: "/", label: "Главная" },
-  { href: "/game", label: "Игра" },
+  { href: "/lobby", label: "Игра" },
   { href: "/profile/info", label: "Профиль", highlight: "/profile" },
 ];
 
