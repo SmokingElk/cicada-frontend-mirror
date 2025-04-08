@@ -1,17 +1,29 @@
-import LandingCarousel from "./landingCarousel";
+"use client";
+
+import LandingCarousel from "@/components/(shared)/landing/landingCarousel";
 import LineSeparator from "@/components/(shared)/common/lineSeparator";
 import LandingCard from "@/components/(shared)/landing/landingCard";
 import Wrapper from "@/components/(shared)/common/wrapper";
 import Image from "next/image";
-import featureHints from "@/../public/images/featureHints.svg";
-import featureDynamics from "@/../public/images/featureDynamics.svg";
-import featureBestMoves from "@/../public/images/featureBestMoves.svg";
+import featureHintsLight from "@/../public/images/lightTheme/featureHintsLight.svg";
+import featureHintsDark from "@/../public/images/darkTheme/featureHintsDark.svg";
+import featureDynamicsLight from "@/../public/images/lightTheme/featureDynamicsLight.svg";
+import featureDynamicsDark from "@/../public/images/darkTheme/featureDynamicsDark.svg";
+import featureBestMovesLight from "@/../public/images/lightTheme/featureBestMovesLight.svg";
+import featureBestMovesDark from "@/../public/images/darkTheme/featureBestMovesDark.svg";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import PointSeparator from "../common/pointSeparator";
+import PointSeparator from "@/components/(shared)/common/pointSeparator";
 import { ReactNode } from "react";
+import { useTheme } from "next-themes";
 
 export default function LandingPage() {
+  const { theme } = useTheme();
+  const featureHints = theme === "dark" ? featureHintsDark : featureHintsLight;
+  const featureDynamics =
+    theme === "dark" ? featureDynamicsDark : featureDynamicsLight;
+  const featureBestMoves =
+    theme === "dark" ? featureBestMovesDark : featureBestMovesLight;
   const features = [
     {
       description: "Получать подсказки о хороших ходах в реальном времени",
@@ -46,7 +58,7 @@ export default function LandingPage() {
               vel sodales justo, sit amet rhoncus augue.
             </div>
             <Button className="w-1/2" variant="transparrent" size="xl" asChild>
-              <Link href="/">Играть</Link>
+              <Link href="/lobby">Играть</Link>
             </Button>
           </div>
           <div className="w-full md:w-1/2">
