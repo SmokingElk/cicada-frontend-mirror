@@ -31,7 +31,7 @@ export default function LandingPage() {
 
   return (
     <>
-      <section className="h-auto md:h-screen flex items-center mb-5">
+      <section className="h-auto md:min-h-[var(--app-height)] flex items-center mb-5 mt-3">
         <Wrapper className="flex flex-col md:flex-row justify-between items-center gap-x-10">
           <div className="w-full md:w-1/2 h-screen md:h-auto flex flex-col justify-center space-y-6">
             <h1 className="font-semibold text-3xl md:text-5xl leading-tight">
