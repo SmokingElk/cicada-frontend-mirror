@@ -21,18 +21,18 @@ export default function Nav() {
                 ? currentPath === highlight
                 : currentPath.startsWith(highlight);
 
-        return `cursor-pointer px-3 py-2 rounded-md text-foreground transition-opacity ${
-            isActive ? "opacity-100" : "opacity-50 hover:opacity-100"
-        }`;
-    };
+    return `cursor-pointer px-3 py-2 m-0 rounded-md text-foreground transition-opacity text-sm md:text-base ${
+      isActive ? "opacity-100" : "opacity-50 hover:opacity-100"
+    }`;
+  };
 
-    return (
-        <nav className="h-full flex justify-center items-center space-x-8">
-            {headerMenuItems.map((link) => (
-                <Link key={link.href} href={link.href} className={getClassName(link)}>
-                    {link.label}
-                </Link>
-            ))}
-        </nav>
-    );
+  return (
+    <nav className="hidden md:flex h-full justify-center items-center gap-0 md:gap-8 ">
+      {headerMenuItems.map((link) => (
+        <Link key={link.href} href={link.href} className={getClassName(link)}>
+          {link.label}
+        </Link>
+      ))}
+    </nav>
+  );
 }

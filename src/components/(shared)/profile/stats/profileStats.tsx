@@ -17,7 +17,7 @@ export default function ProfileStats() {
   ];
 
   return (
-    <div className="flex gap-5">
+    <div className="flex flex-col md:flex-row gap-5">
       <div className="w-full">
         <LineSeparator direction="left" width={100} />
 
@@ -41,9 +41,9 @@ export default function ProfileStats() {
           ))}
         </div>
       </div>
-      <div className="w-full">
+      <div className="w-full px-3 pt-4 pb-6 md:pt-0">
         <LineSeparator direction="left" width={100} />
-        <div className="w-2/3 mx-auto">
+        <div className="w-full md:w-2/3 mx-auto">
           <div className="font-montserrat font-semibold text-3xl text-foreground mb-9">
             Статистика игр:
           </div>
