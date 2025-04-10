@@ -41,14 +41,14 @@
     --app-height: 100vh;
   }
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    --background: 243 5% 14%;
+    --foreground: 26 10% 86%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
+    --primary: 30 48% 37%;
+    --primary-foreground: 243 5% 14%;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 240 3.7% 15.9%;
@@ -78,9 +78,9 @@
 }
 
 @supports (height: 100dvh) {
-    :root {
-      --app-height: 100dvh;
-    }
+  :root {
+    --app-height: 100dvh;
+  }
 }
 
 
