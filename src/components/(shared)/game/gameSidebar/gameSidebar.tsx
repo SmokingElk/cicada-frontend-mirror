@@ -1,12 +1,12 @@
 "use client";
 
-import { Ref, use, useState } from "react";
+import { Move } from "chess.js";
+import { useState } from "react";
 import { Styleable } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { pieceNameMap } from "@/hardcode/pieceNameMap";
 import gameSidebarMenuItems from "@/hardcode/gameSidebarMenuItems";
 import RhombusDecor from "@/components/(shared)/common/rhombusDecor";
-import { Move } from "chess.js";
-import { pieceNameMap } from "@/hardcode/pieceNameMap";
 
 interface GameSidebarProps extends Styleable {
   moves: Move[];

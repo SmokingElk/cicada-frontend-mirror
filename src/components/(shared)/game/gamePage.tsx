@@ -1,12 +1,12 @@
 "use client";
 
+import { Move } from "chess.js";
+import { useEffect, useRef, useState } from "react";
 import Wrapper from "@/components/(shared)/common/wrapper";
 import GameHeader from "@/components/(shared)/game/gameHeader/gameHeader";
 import GameNav from "@/components/(shared)/game/gameNav/gameNav";
 import GameSidebar from "@/components/(shared)/game/gameSidebar/gameSidebar";
-import { Move } from "chess.js";
-import { useEffect, useRef, useState } from "react";
-import GameBoard from "./gameBoard/gameBoard";
+import GameBoard from "@/components/(shared)/game/gameBoard/gameBoard";
 
 export default function GamePage() {
   // это бы лучше сделать глобальным стейтом через Redux
