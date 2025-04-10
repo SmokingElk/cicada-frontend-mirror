@@ -1,7 +1,7 @@
 "use client";
 
-import { Chess, Square } from "chess.js";
-import React, { useEffect, useState } from "react";
+import { Chess, Square, Move } from "chess.js";
+import React, { Ref, useEffect, useState } from "react";
 import { Chessboard } from "react-chessboard";
 import { cn } from "@/lib/utils";
 import { Styleable } from "@/lib/types";
@@ -11,7 +11,7 @@ const availableMarkStyle = {
   borderRadius: "50%",
 };
 
-interface Move {
+export interface MoveParams {
   from: Square;
   to: Square;
   promotion: string;
@@ -20,6 +20,11 @@ interface Move {
 interface BoardTheme {
   darkSquareColor: string;
   lightSquareColor: string;
+}
+
+interface GameBoardProps extends Styleable {
+  addMove: (move: Move) => void;
+  boardRef: Ref<HTMLDivElement>;
 }
 
 function createAvailableMoves(
@@ -38,7 +43,11 @@ function createAvailableMoves(
   return newMoveSquares;
 }
 
-export default function GameBoard({ className = "" }: Styleable) {
+export default function GameBoard({
+  className = "",
+  addMove,
+  boardRef,
+}: GameBoardProps) {
   const [game, setGame] = useState(new Chess());
   const [moveSquares, setMoveSquares] = useState({});
   const playerColor: String = "w"; // достать с сервера
@@ -49,10 +58,13 @@ export default function GameBoard({ className = "" }: Styleable) {
     darkSquareColor: "#5d4022",
   });
 
-  function makeMove(move: Move | string) {
+  function makeMove(move: MoveParams | string) {
     const newGame = new Chess(game.fen());
     const res = newGame.move(move);
     setGame(newGame);
+
+    if (move != null) addMove(res);
+
     return res;
   }
 
@@ -117,6 +129,7 @@ export default function GameBoard({ className = "" }: Styleable) {
 
   return (
     <div
+      ref={boardRef}
       className={cn(
         "w-full aspect-square border-foreground border-2",
         className

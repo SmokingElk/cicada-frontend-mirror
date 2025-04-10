@@ -1,23 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { Ref, use, useState } from "react";
 import { Styleable } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import gameSidebarMenuItems from "@/hardcode/gameSidebarMenuItems";
 import RhombusDecor from "@/components/(shared)/common/rhombusDecor";
+import { Move } from "chess.js";
+import { pieceNameMap } from "@/hardcode/pieceNameMap";
 
-export default function GameSidebar({ className = "" }: Styleable) {
+interface GameSidebarProps extends Styleable {
+  moves: Move[];
+  boardSize: number;
+}
+
+export default function GameSidebar({
+  className = "",
+  moves,
+  boardSize,
+}: GameSidebarProps) {
   const [currentItem, setCurrentItem] = useState(0);
-
-  const moves = [
-    { piece: "пешка", from: "E2", to: "E4" },
-    { piece: "пешка", from: "E7", to: "E5" },
-    { piece: "конь", from: "B1", to: "C3" },
-    { piece: "король", from: "E1", to: "E2" },
-  ];
+  console.log(boardSize - 48);
 
   return (
-    <div className={cn("w-full h-full flex flex-col gap-12", className)}>
+    <div className={cn("w-full h-full grid gap-12", className)}>
       <div
         className="grid grid-rows-[0_0] w-full h-0 border-b-2 border-foreground"
         style={{
@@ -49,8 +54,14 @@ export default function GameSidebar({ className = "" }: Styleable) {
           <RhombusDecor />
         </div>
       </div>
-      <div className="flex h-full overflow-y-auto border-box">
-        <div className="flex gap-5 flex-col items-center w-1/5 border-r-2 border-foreground box-border pt-2">
+      <div
+        className="flex overflow-y-auto border-box"
+        style={{
+          height: `${Math.max(0, boardSize - 48)}px`,
+          maxHeight: `${Math.max(0, boardSize - 48)}px`,
+        }}
+      >
+        <div className="flex h-full gap-5 flex-col items-center w-1/5 border-r-2 border-foreground box-border pt-2">
           {moves.map((e, index) => (
             <div
               key={`move_indicator_${index}`}
@@ -67,14 +78,22 @@ export default function GameSidebar({ className = "" }: Styleable) {
         </div>
 
         <div className="flex flex-col gap-5 w-2/5 border-r-2 border-foreground box-border pt-2">
-          {moves.map((e, index) => (
-            <div
-              key={`move_piece_${index}`}
-              className="text-foreground font-roboto text-base h-4 flex items-center box-border pl-2"
-            >
-              {e.piece}
-            </div>
-          ))}
+          {moves.map((e, index) => {
+            const name = pieceNameMap[e.piece];
+            const size = name.length > 6 ? "text-sm" : "text-base";
+
+            return (
+              <div
+                key={`move_piece_${index}`}
+                className={cn(
+                  "text-foreground font-roboto h-4 flex items-center box-border pl-2",
+                  size
+                )}
+              >
+                {name}
+              </div>
+            );
+          })}
         </div>
 
         <div className="flex flex-col gap-5 w-1/5 border-r-2 border-foreground box-border pt-2">
