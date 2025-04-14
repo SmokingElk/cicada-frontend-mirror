@@ -10,13 +10,13 @@ interface RenderBoardArgs {
   ctx: CanvasRenderingContext2D;
   width: number;
   height: number;
-  picies: Piece[];
+  pieces: Piece[];
 }
 
 export default class GameRenderer {
   constructor() {}
 
-  render({ ctx, width, height, picies }: RenderBoardArgs) {
+  render({ ctx, width, height, pieces }: RenderBoardArgs) {
     ctx.clearRect(0, 0, width, height);
 
     const offset = 50;
@@ -97,7 +97,7 @@ export default class GameRenderer {
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
-    picies.forEach((e: Piece) => {
+    pieces.forEach((e: Piece) => {
       ctx.fillStyle = e.white ? "#DEDAD7" : "#232326";
       let x = (e.col.charCodeAt(0) - "a".charCodeAt(0)) * cellSize;
       let y = (boardSize - e.row.charCodeAt(0) + "0".charCodeAt(0)) * cellSize;

@@ -14,7 +14,7 @@ export default function GameBoard({ className = "" }: Styleable) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [gameRenderer] = useState(new GameRenderer());
 
-  const picies = [
+  const pieces = [
     { col: "a", row: "2", white: true },
     { col: "b", row: "2", white: true },
     { col: "a", row: "7", white: false },
@@ -55,7 +55,7 @@ export default function GameBoard({ className = "" }: Styleable) {
           ctx,
           width: canvasSize.width,
           height: canvasSize.height,
-          picies,
+          pieces,
         });
 
         requestId = requestAnimationFrame(render);

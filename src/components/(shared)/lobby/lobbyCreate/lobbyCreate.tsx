@@ -51,7 +51,7 @@ export default function LobbyCreate({ className = "" }: Styleable) {
   const timePresets = [3 * 60, 5 * 60, 10 * 60, 30 * 60];
 
   return (
-      <div className={cn("w-full md:py-4 py-16", className)}>
+      <div className={cn("max-w-screen-sm md:py-4 py-16", className)}>
         <div
             className={cn(
                 "w-full transition-all duration-300 overflow-hidden",
@@ -87,7 +87,7 @@ export default function LobbyCreate({ className = "" }: Styleable) {
                 Укажите время на ход
               </div>
 
-              <div className="font-montserrat font-medium text-foreground text-xl md:text-2xl mb-5">
+              <div className="font-montserrat font-medium text-foreground text-lg md:text-2xl mb-5">
                 {formatTime(moveTime)}
               </div>
 
@@ -102,7 +102,7 @@ export default function LobbyCreate({ className = "" }: Styleable) {
               <div className="w-full flex flex-wrap justify-between gap-2 mb-8">
                 {timePresets.map((e, index) => (
                     <div
-                        className="font-montserrat font-medium text-foreground text-base md:text-xl opacity-70 hover:opacity-100 cursor-pointer px-1 md:px-2"
+                        className="font-montserrat font-medium text-foreground text-base opacity-70 hover:opacity-100 cursor-pointer px-1"
                         key={`time_preset_${index}`}
                         onClick={() => setMoveTime(e)}
                     >
