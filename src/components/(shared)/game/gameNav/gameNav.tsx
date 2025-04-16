@@ -10,11 +10,11 @@ export default function GameNav({className = ""}: Styleable) {
         <div
             className={cn("w-full flex flex-row md:flex-col justify-end space-x-1 md:space-y-6", className)}
         >
-            <Button className="w-1/2 md:w-full h-10 md:h-16 text-base" variant="transparrent" asChild>
+            <Button className="w-1/2 md:w-full h-10 md:h-16" variant="transparrent" size="lg" asChild>
                 <Link href="/game">Ничья</Link>
             </Button>
 
-            <Button className="w-1/2 md:w-full h-10 md:h-16 text-base" variant="transparrent" asChild>
+            <Button className="w-1/2 md:w-full h-10 md:h-16" variant="transparrent" size="lg" asChild>
                 <Link href="/game">Сдаться</Link>
             </Button>
         </div>
