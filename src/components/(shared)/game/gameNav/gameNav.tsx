@@ -8,13 +8,13 @@ import {cn} from "@/lib/utils";
 export default function GameNav({className = ""}: Styleable) {
     return (
         <div
-            className={cn("w-full flex flex-col justify-end space-y-6", className)}
+            className={cn("w-full flex flex-row md:flex-col justify-end space-x-1 md:space-y-6", className)}
         >
-            <Button className="w-full h-16" variant="transparrent" size="xl" asChild>
+            <Button className="w-1/2 md:w-full h-10 md:h-16 text-base" variant="transparrent" asChild>
                 <Link href="/game">Ничья</Link>
             </Button>
 
-            <Button className="w-full h-16" variant="transparrent" size="xl" asChild>
+            <Button className="w-1/2 md:w-full h-10 md:h-16 text-base" variant="transparrent" asChild>
                 <Link href="/game">Сдаться</Link>
             </Button>
         </div>

@@ -17,7 +17,7 @@ export default function GameSidebar({ className = "" }: Styleable) {
     ];
 
     return (
-        <div className={cn("w-full h-full flex flex-col gap-12", className)}>
+        <div className={cn("w-full flex flex-col gap-4 h-full", className)}>
             <div
                 className="grid grid-rows-[0_0] w-full h-0 border-b-2 border-foreground"
                 style={{
@@ -31,8 +31,8 @@ export default function GameSidebar({ className = "" }: Styleable) {
                     >
                         <div
                             className={cn(
-                                "absolute bottom-4 font-roboto text-base text-foreground whitespace-pre-line",
-                                index === currentItem ? "opacity-100" : "opacity-50",
+                                "absolute bottom-4 pb-2 font-roboto text-base text-foreground leading-none whitespace-pre-line",
+                                index === currentItem ? "opacity-80" : "opacity-50",
                                 "hover:opacity-100 transition-all cursor-pointer"
                             )}
                             onClick={() => setCurrentItem(index)}
@@ -49,16 +49,16 @@ export default function GameSidebar({ className = "" }: Styleable) {
                     <RhombusDecor/>
                 </div>
             </div>
-            <div className="flex h-full overflow-y-auto border-box">
-                <div className="flex gap-5 flex-col items-center w-1/5 border-r-2 border-foreground box-border pt-2">
+            <div className="flex flex-1 min-h-0">
+                <div className="flex flex-col items-center w-1/5 border-r-2 border-foreground overflow-y-auto py-2 space-y-4">
                     {moves.map((e, index) => (
                         <div
                             key={`move_indicator_${index}`}
-                            className="flex w-4 h-4 justify-center items-center"
+                            className="flex w-4 h-4 justify-center items-center flex-shrink-0"
                         >
                             <RhombusDecor
                                 className={cn(
-                                    index % 2 === 0 ? "bg-background" : "bg-foreground",
+                                    index % 2 === 0 ? "bg-neutral-100" : "bg-neutral-800",
                                     "border-2 border-primary"
                                 )}
                             />
@@ -66,33 +66,33 @@ export default function GameSidebar({ className = "" }: Styleable) {
                     ))}
                 </div>
 
-                <div className="flex flex-col gap-5 w-2/5 border-r-2 border-foreground box-border pt-2">
+                <div className="flex flex-col w-2/5 border-r-2 border-foreground overflow-y-auto py-2 space-y-4">
                     {moves.map((e, index) => (
                         <div
                             key={`move_piece_${index}`}
-                            className="text-foreground font-roboto text-base h-4 flex items-center box-border pl-2"
+                            className="text-foreground font-roboto text-base flex items-center pl-2 flex-shrink-0"
                         >
                             {e.piece}
                         </div>
                     ))}
                 </div>
 
-                <div className="flex flex-col gap-5 w-1/5 border-r-2 border-foreground box-border pt-2">
+                <div className="flex flex-col w-1/5 border-r-2 border-foreground overflow-y-auto py-2 space-y-4">
                     {moves.map((e, index) => (
                         <div
                             key={`move_from_${index}`}
-                            className="text-foreground font-roboto text-base h-4 flex justify-center items-center"
+                            className="text-foreground font-roboto text-base flex justify-center items-center flex-shrink-0"
                         >
                             {e.from}
                         </div>
                     ))}
                 </div>
 
-                <div className="flex flex-col gap-5 w-1/5 box-border pt-2">
+                <div className="flex flex-col w-1/5 overflow-y-auto py-2 space-y-4">
                     {moves.map((e, index) => (
                         <div
                             key={`move_to_${index}`}
-                            className="text-foreground font-roboto text-base h-4 flex justify-center items-center"
+                            className="text-foreground font-roboto text-base flex justify-center items-center flex-shrink-0"
                         >
                             {e.to}
                         </div>

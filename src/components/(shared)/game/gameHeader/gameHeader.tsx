@@ -7,12 +7,12 @@ export default function GameHeader({className = ""}: Styleable) {
     return (
         <div
             className={cn(
-                "w-screen md:w-full h-40 md:h-full border-y-2 border-foreground flex flex-col md:flex-row items-center gap-2 md:gap-5",
+                "w-full h-20 md:h-full border-y-2 border-foreground flex flex-row items-center md:gap-5 overflow-hidden",
                 className
             )}
         >
-            <GameOpponentsInfo className="w-full md:w-1/4"/>
-            <GameAdvantageChart className="w-full md:w-3/4 border-l-2 border-foreground"/>
+            <GameOpponentsInfo className="w-1/2 md:w-1/4 min-w-0 ml-3"/>
+            <GameAdvantageChart className="w-1/2 md:w-3/4 border-l-2 border-foreground min-w-0"/>
         </div>
     );
 }

@@ -22,9 +22,9 @@ export default function GameOpponentsInfo({className = ""}: Styleable) {
 
     return (
         <div className={cn("w-full flex flex-col justify-center", className)}>
-            <div className="w-full flex flex-row text-base md:text-lg text-foreground font-roboto justify-center">
+            <div className="w-full flex flex-row text-xs md:text-lg text-foreground font-roboto justify-center">
                 {username}
-                <RhombusDecor className="bg-primary size-2 md:size-3 mx-2 mt-2"/>
+                <RhombusDecor className="bg-primary size-2 mx-1 mt-1 md:mt-2.5"/>
                 {rating}
             </div>
 
@@ -59,9 +59,9 @@ export default function GameOpponentsInfo({className = ""}: Styleable) {
                 </div>
             </section>
 
-            <div className="w-full flex flex-row text-base md:text-lg text-foreground font-roboto justify-center">
+            <div className="w-full flex flex-row text-xs md:text-lg text-foreground font-roboto justify-center">
                 {usernameOpponent}
-                <RhombusDecor className="bg-primary size-2 md:size-3 mx-2 mt-2"/>
+                <RhombusDecor className="bg-primary size-2 mx-1 mt-1 md:mt-2.5"/>
                 {ratingOpponent}
             </div>
         </div>

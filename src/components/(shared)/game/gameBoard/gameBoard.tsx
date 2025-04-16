@@ -3,9 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Styleable } from "@/lib/types";
+import { useTheme } from "next-themes"
 import GameRenderer from "@/graphics/gameRenderer/GameRenderer";
 
+type ThemeType = 'light' | 'dark' | undefined;
+
 export default function GameBoard({ className = "" }: Styleable) {
+  const { theme } = useTheme();
   const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
   const canvasSizeRef = useRef(canvasSize);
   const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>(null);
@@ -13,6 +17,7 @@ export default function GameBoard({ className = "" }: Styleable) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [gameRenderer] = useState(new GameRenderer());
+  const themeRef = useRef<ThemeType>(theme === 'light' || theme === 'dark' ? theme : undefined);
 
   const pieces = [
     { col: "a", row: "2", white: true },
@@ -20,6 +25,10 @@ export default function GameBoard({ className = "" }: Styleable) {
     { col: "a", row: "7", white: false },
     { col: "b", row: "7", white: false },
   ];
+
+  useEffect(() => {
+    themeRef.current = theme === 'light' || theme === 'dark' ? theme : undefined;
+  }, [theme]);
 
   const updateCanvasSize = () => {
     if (wrapperRef.current == null) return;
@@ -43,7 +52,7 @@ export default function GameBoard({ className = "" }: Styleable) {
   }, [canvasSize]);
 
   useEffect(() => {
-    if (ctx === null || isRendering) return;
+    if (ctx === null) return;
     setIsRendering(true);
 
     let requestId: number;
@@ -56,6 +65,7 @@ export default function GameBoard({ className = "" }: Styleable) {
           width: canvasSize.width,
           height: canvasSize.height,
           pieces,
+          theme: themeRef.current,
         });
 
         requestId = requestAnimationFrame(render);
@@ -68,21 +78,34 @@ export default function GameBoard({ className = "" }: Styleable) {
     render();
 
     return () => cancelAnimationFrame(requestId);
-  }, [ctx]);
+  }, [ctx, gameRenderer]);
 
   useEffect(() => {
     window.addEventListener("resize", updateCanvasSize);
     return () => window.removeEventListener("resize", updateCanvasSize);
   }, []);
 
+  useEffect(() => {
+    if (ctx && isRendering) {
+      const canvasSize = canvasSizeRef.current;
+      gameRenderer.render({
+        ctx,
+        width: canvasSize.width,
+        height: canvasSize.height,
+        pieces,
+        theme: themeRef.current,
+      });
+    }
+  }, [theme, ctx, isRendering, gameRenderer]);
+
   return (
-    <div ref={wrapperRef} className={cn("w-full aspect-square", className)}>
-      <canvas
-        ref={canvasRef}
-        className="w-full h-full"
-        width={canvasSize.width}
-        height={canvasSize.height}
-      ></canvas>
-    </div>
+      <div ref={wrapperRef} className={cn("w-full max-w-full aspect-square", className)}>
+        <canvas
+            ref={canvasRef}
+            className="w-full h-full"
+            width={canvasSize.width}
+            height={canvasSize.height}
+        ></canvas>
+      </div>
   );
 }
