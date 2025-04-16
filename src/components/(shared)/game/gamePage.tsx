@@ -28,16 +28,16 @@ export default function GamePage() {
   }, [boardRef.current]);
 
   return (
-    <Wrapper>
-      <div className="grid grid-cols-4 grid-rows-[150px_auto] gap-x-5 gap-y-16 mb-20">
-        <GameHeader className="col-span-4" />
-        <GameNav />
+      <Wrapper className="min-h-screen h-auto max-w-screen">
+          <div className="flex flex-col md:grid md:grid-cols-4 md:grid-rows-[150px_auto] gap-x-5 gap-y-16 mb-10">
+              <GameHeader className="col-span-4 order-1"/>
+              <GameNav className="order-3 md:order-2"/>
         <GameBoard
           boardRef={boardRef}
-          className="col-span-2"
+          className="order-2 md:order-3 col-span-2 w-full overflow-hidden"
           addMove={addMove}
         />
-        <GameSidebar moves={moves} boardSize={boardSize} />
+        <GameSidebar moves={moves} boardSize={boardSize} className="order-4"/>
       </div>
     </Wrapper>
   );

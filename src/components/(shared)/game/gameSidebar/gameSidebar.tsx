@@ -22,7 +22,7 @@ export default function GameSidebar({
   console.log(boardSize - 48);
 
   return (
-    <div className={cn("w-full h-full grid gap-12", className)}>
+    <div className={cn("w-full flex flex-col gap-4 h-full", className)}>
       <div
         className="grid grid-rows-[0_0] w-full h-0 border-b-2 border-foreground"
         style={{
