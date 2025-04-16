@@ -16,23 +16,42 @@ function Bar({fill, bottomWhite}: { fill: number; bottomWhite: boolean }) {
     );
 
     return (
-        <div className="h-full flex flex-col" style={{width: `${barWidthPx}px`}}>
-            <div
-                className={cn(
-                    "w-full relative border-b-2 border-background",
-                    !bottomWhite ? "bg-primary" : "bg-foreground"
-                )}
-                style={{height: `${100 - bottomHeight}%`}}
-            >
-                <div className="absolute top-full w-full h-[2px] flex justify-center items-center">
-                    <RhombusDecor className="w-2 h-2 bg-background"/>
+        <>
+            <div className="hidden h-full md:flex flex-col" style={{width: `${barWidthPx}px`}}>
+                <div
+                    className={cn(
+                        "w-full relative border-b-2 border-background",
+                        !bottomWhite ? "bg-primary" : "bg-foreground"
+                    )}
+                    style={{height: `${100 - bottomHeight}%`}}
+                >
+                    <div className="absolute top-full w-full h-[2px] flex justify-center items-center">
+                        <RhombusDecor className="w-2 h-2 size-1.5 md:size-2 bg-background"/>
+                    </div>
                 </div>
+                <div
+                    className={cn("w-full", bottomWhite ? "bg-primary" : "bg-foreground")}
+                    style={{height: `${bottomHeight}%`}}
+                ></div>
             </div>
-            <div
-                className={cn("w-full", bottomWhite ? "bg-primary" : "bg-foreground")}
-                style={{height: `${bottomHeight}%`}}
-            ></div>
-        </div>
+            <div className="h-full flex md:hidden flex-col" style={{width: `${barWidthPx/1.5}px`}}>
+                <div
+                    className={cn(
+                        "w-full relative border-b-2 border-background",
+                        !bottomWhite ? "bg-primary" : "bg-foreground"
+                    )}
+                    style={{height: `${100 - bottomHeight}%`}}
+                >
+                    <div className="absolute top-full w-full h-[2px] flex justify-center items-center">
+                        <RhombusDecor className="w-2 h-2 size-1.5 md:size-2 bg-background"/>
+                    </div>
+                </div>
+                <div
+                    className={cn("w-full", bottomWhite ? "bg-primary" : "bg-foreground")}
+                    style={{height: `${bottomHeight}%`}}
+                ></div>
+            </div>
+        </>
     );
 }
 
@@ -61,7 +80,7 @@ export default function GameAdvantageChart({className = ""}: Styleable) {
     return (
         <div
             ref={chartRef}
-            className={cn("h-3/5 box-border pl-5 flex", className)}
+            className={cn("h-4/5 md:h-3/5 box-border pl-5 flex overflow-x-auto overflow-y-hidden", className)}
             style={{gap: `${barSpacingPx}px`}}
         >
             {advantageValues.slice(-barsCount).map((e, index) => (

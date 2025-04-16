@@ -2,30 +2,32 @@ interface Piece {
   col: string;
   row: string;
   white: boolean;
-  //   id: number;
-  //   exists: Boolean;
 }
 
 interface RenderBoardArgs {
   ctx: CanvasRenderingContext2D;
   width: number;
   height: number;
-  picies: Piece[];
+  pieces: Piece[];
+  theme?: 'light' | 'dark';
 }
 
 export default class GameRenderer {
   constructor() {}
 
-  render({ ctx, width, height, picies }: RenderBoardArgs) {
+  render({ ctx, width, height, pieces, theme }: RenderBoardArgs) {
     ctx.clearRect(0, 0, width, height);
 
     const offset = 50;
     const boardSize = 8;
     const cellSize = (width - offset) / boardSize;
 
+    const textColor = theme === 'dark' ? '#D9D7DE' : '#232326';
+
     ctx.save();
 
-    ctx.translate(offset, 0);
+    const leftOffset = 40;
+    ctx.translate(leftOffset, 0);
 
     ctx.fillStyle = "#8A5D31";
     for (let i = 0; i < boardSize; i++) {
@@ -41,7 +43,7 @@ export default class GameRenderer {
       }
     }
 
-    ctx.strokeStyle = "#232326";
+    ctx.strokeStyle = textColor;
     ctx.lineWidth = 2;
     ctx.strokeRect(0, 0, cellSize * boardSize, cellSize * boardSize);
 
@@ -49,19 +51,22 @@ export default class GameRenderer {
 
     ctx.save();
 
-    ctx.translate(offset / 2, height - offset / 2);
-
-    ctx.fillStyle = "#232326";
+    ctx.translate(leftOffset / 2, height - offset / 2);
+    ctx.fillStyle = textColor;
     ctx.font = "12px Arial";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
     for (let i = 0; i < boardSize; i++) {
       ctx.fillText(`${i + 1}`, 0, -offset / 2 - cellSize / 2 - cellSize * i);
+    }
+
+    ctx.translate(offset / 2, 0);
+    for (let i = 0; i < boardSize; i++) {
       ctx.fillText(
-        String.fromCharCode("A".charCodeAt(0) + i),
-        offset / 2 + cellSize / 2 + cellSize * i,
-        0
+          String.fromCharCode("A".charCodeAt(0) + i),
+          cellSize / 2 + cellSize * i,
+          0
       );
     }
 
@@ -69,12 +74,12 @@ export default class GameRenderer {
 
     ctx.save();
 
-    ctx.strokeStyle = "#232326";
+    ctx.strokeStyle = textColor;
     ctx.lineWidth = 2;
 
     ctx.beginPath();
-    ctx.moveTo(offset * 0.75, 0);
-    ctx.lineTo(offset * 0.75, height - offset * 0.75);
+    ctx.moveTo(leftOffset * 0.75, 0);
+    ctx.lineTo(leftOffset * 0.75, height - offset * 0.75);
     ctx.lineTo(width, height - offset * 0.75);
     ctx.stroke();
 
@@ -82,22 +87,22 @@ export default class GameRenderer {
 
     ctx.save();
 
-    ctx.translate(offset * 0.75, height - offset * 0.75);
+    ctx.translate(leftOffset * 0.75, height - offset * 0.75);
     ctx.rotate(Math.PI / 4);
 
-    ctx.fillStyle = "#232326";
+    ctx.fillStyle = textColor;
     ctx.fillRect(-offset / 4 / 2, -offset / 4 / 2, offset / 4, offset / 4);
 
     ctx.restore();
 
     ctx.save();
 
-    ctx.translate(offset + cellSize / 2, cellSize / 2);
+    ctx.translate(leftOffset + cellSize / 2, cellSize / 2);
     ctx.font = "20px Arial";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
-    picies.forEach((e: Piece) => {
+    pieces.forEach((e: Piece) => {
       ctx.fillStyle = e.white ? "#DEDAD7" : "#232326";
       let x = (e.col.charCodeAt(0) - "a".charCodeAt(0)) * cellSize;
       let y = (boardSize - e.row.charCodeAt(0) + "0".charCodeAt(0)) * cellSize;
