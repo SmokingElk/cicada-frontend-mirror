@@ -10,9 +10,9 @@ export default function DecoratedTile({
 }: DecoratedTileProps) {
   return (
     <div className={cn("flex bg-foreground justify-between h-20", className)}>
-      <div>{children}</div>
-      <div className="h-full aspect-square flex justify-center items-center">
-        <RhombusDecor className="bg-background" />
+      <div className="w-full">{children}</div>
+      <div className="h-full md:aspect-square hidden md:flex justify-center items-center">
+        <RhombusDecor className="flex bg-background" />
       </div>
     </div>
   );
