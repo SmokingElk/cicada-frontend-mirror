@@ -11,8 +11,8 @@ export default function GameHeader({className = ""}: Styleable) {
                 className
             )}
         >
-            <GameOpponentsInfo className="w-1/2 md:w-1/4 min-w-0 ml-3"/>
-            <GameAdvantageChart className="w-1/2 md:w-3/4 border-l-2 border-foreground min-w-0"/>
+            <GameOpponentsInfo className="w-1/2 lg:w-1/4 min-w-0 ml-3"/>
+            <GameAdvantageChart className="w-1/2 lg:w-3/4 border-l-2 border-foreground min-w-0"/>
         </div>
     );
 }
