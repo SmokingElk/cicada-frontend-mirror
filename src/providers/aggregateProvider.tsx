@@ -1,27 +1,28 @@
-"use client"
-import { useEffect, useState } from "react";
+"use client";
 
-import { Toaster as Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner"
-import { ThemeProvider } from "./items/themeProvider";
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {SessionProvider} from "next-auth/react";
+import {ThemeProvider} from "./items/themeProvider";
 
-export default function AggregateProvider({children}: { children: React.ReactNode }) {
-	const [isClient, setIsClient] = useState(false);
+import {Toaster as Toaster} from "@/components/ui/toaster";
+import {Toaster as Sonner} from "@/components/ui/sonner";
 
-	useEffect(() => {
-		setIsClient(true);
-	}, []);
+export default function AggregateProvider({children,}: {
+	children: React.ReactNode;
+}) {
+	const [mounted, setMounted] = useState(false);
+	useEffect(() => setMounted(true), []);
 
-	if (!isClient) {
-		return null;
-	}
+	if (!mounted) return null;         // избегаем гидратации в SSR
+
 
 	return (
-		<ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
-			{children}
-			<Toaster/>
-			<Sonner/>
-		</ThemeProvider>
-	)
+		<SessionProvider refetchInterval={4 * 60}>
+			<ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+				{children}
+				<Toaster/>
+				<Sonner/>
+			</ThemeProvider>
+		</SessionProvider>
+	);
 }
