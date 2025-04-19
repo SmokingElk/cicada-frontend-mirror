@@ -4,115 +4,127 @@
  */
 import axios from 'axios';
 import type {
-  AxiosRequestConfig,
-  AxiosResponse
+	AxiosRequestConfig,
+	AxiosResponse
 } from 'axios';
 
 import type {
-  DocsAccessRequest,
-  DocsForgotPasswordRequest,
-  DocsLoginRequest,
-  DocsRefreshRequest,
-  DocsResetPasswordRequest,
-  DocsSuccessResponseWithoutData,
-  PostAuthLogin200,
-  PostAuthRefresh200
+	DocsAccessRequest,
+	DocsForgotPasswordRequest,
+	DocsLoginRequest,
+	DocsRefreshRequest,
+	DocsResetPasswordRequest,
+	DocsSuccessResponseWithoutData,
+	PostAuthLogin200,
+	PostAuthRefresh200
 } from './auth.schemas';
 
 
+export const get = () => {
+	/**
+	 * Проверяет доступ к заданному маршруту на основе роли
+	 * @summary Проверка прав доступа
+	 */
+	const postAuthAccess = <TData = AxiosResponse<DocsSuccessResponseWithoutData>>(
+		docsAccessRequest: DocsAccessRequest, options?: AxiosRequestConfig
+	): Promise<TData> => {
+		return axios.post(
+			`http://217.114.11.158:8081/auth/access`,
+			docsAccessRequest, options
+		);
+	}
+
+	/**
+	 * Проверяет валидность переданного access-токена
+	 * @summary Проверка токена
+	 */
+	const getAuthCheck = <TData = AxiosResponse<DocsSuccessResponseWithoutData>>(
+		options?: AxiosRequestConfig
+	): Promise<TData> => {
+		return axios.get(
+			`http://217.114.11.158:8081/auth/check`, options
+		);
+	}
+
+	/**
+	 * Отправляет ссылку для восстановления доступа
+	 * @summary Восстановление пароля
+	 */
+	const postAuthForgotPassword = <TData = AxiosResponse<DocsSuccessResponseWithoutData>>(
+		docsForgotPasswordRequest: DocsForgotPasswordRequest, options?: AxiosRequestConfig
+	): Promise<TData> => {
+		return axios.post(
+			`http://217.114.11.158:8081/auth/forgot-password`,
+			docsForgotPasswordRequest, options
+		);
+	}
+
+	/**
+	 * Аутентифицирует пользователя и выдаёт JWT-токены
+	 * @summary Вход пользователя
+	 */
+	const postAuthLogin = <TData = AxiosResponse<PostAuthLogin200>>(
+		docsLoginRequest: DocsLoginRequest, options?: AxiosRequestConfig
+	): Promise<TData> => {
+		return axios.post(
+			`http://217.114.11.158:8081/auth/login`,
+			docsLoginRequest, options
+		);
+	}
+
+	/**
+	 * Завершает сессию пользователя
+	 * @summary Выход пользователя
+	 */
+	const postAuthLogout = <
+		TData = AxiosResponse<DocsSuccessResponseWithoutData>
+	>(
+		options?: AxiosRequestConfig
+	): Promise<TData> => {
+		return axios.post(
+			"http://217.114.11.158:8081/auth/logout",
+			undefined,
+			options
+		);
+	};
 
 
-  export const get = () => {
-/**
- * Проверяет доступ к заданному маршруту на основе роли
- * @summary Проверка прав доступа
- */
-const postAuthAccess = <TData = AxiosResponse<DocsSuccessResponseWithoutData>>(
-    docsAccessRequest: DocsAccessRequest, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.post(
-      `http://217.114.11.158:8081/auth/access`,
-      docsAccessRequest,options
-    );
-  }
+	/**
+	 * Обновляет access-токен с помощью refresh-токена
+	 * @summary Обновление токена
+	 */
+	const postAuthRefresh = <TData = AxiosResponse<PostAuthRefresh200>>(
+		docsRefreshRequest: DocsRefreshRequest, options?: AxiosRequestConfig
+	): Promise<TData> => {
+		return axios.post(
+			`http://217.114.11.158:8081/auth/refresh`,
+			docsRefreshRequest, options
+		);
+	}
 
-/**
- * Проверяет валидность переданного access-токена
- * @summary Проверка токена
- */
-const getAuthCheck = <TData = AxiosResponse<DocsSuccessResponseWithoutData>>(
-     options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.get(
-      `http://217.114.11.158:8081/auth/check`,options
-    );
-  }
+	/**
+	 * Сбрасывает пароль по ссылке для восстановления
+	 * @summary Сброс пароля
+	 */
+	const postAuthResetPassword = <TData = AxiosResponse<DocsSuccessResponseWithoutData>>(
+		docsResetPasswordRequest: DocsResetPasswordRequest, options?: AxiosRequestConfig
+	): Promise<TData> => {
+		return axios.post(
+			`http://217.114.11.158:8081/auth/reset-password`,
+			docsResetPasswordRequest, options
+		);
+	}
 
-/**
- * Отправляет ссылку для восстановления доступа
- * @summary Восстановление пароля
- */
-const postAuthForgotPassword = <TData = AxiosResponse<DocsSuccessResponseWithoutData>>(
-    docsForgotPasswordRequest: DocsForgotPasswordRequest, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.post(
-      `http://217.114.11.158:8081/auth/forgot-password`,
-      docsForgotPasswordRequest,options
-    );
-  }
-
-/**
- * Аутентифицирует пользователя и выдаёт JWT-токены
- * @summary Вход пользователя
- */
-const postAuthLogin = <TData = AxiosResponse<PostAuthLogin200>>(
-    docsLoginRequest: DocsLoginRequest, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.post(
-      `http://217.114.11.158:8081/auth/login`,
-      docsLoginRequest,options
-    );
-  }
-
-/**
- * Завершает сессию пользователя
- * @summary Выход пользователя
- */
-const postAuthLogout = <TData = AxiosResponse<DocsSuccessResponseWithoutData>>(
-     options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.post(
-      `http://217.114.11.158:8081/auth/logout`,undefined,options
-    );
-  }
-
-/**
- * Обновляет access-токен с помощью refresh-токена
- * @summary Обновление токена
- */
-const postAuthRefresh = <TData = AxiosResponse<PostAuthRefresh200>>(
-    docsRefreshRequest: DocsRefreshRequest, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.post(
-      `http://217.114.11.158:8081/auth/refresh`,
-      docsRefreshRequest,options
-    );
-  }
-
-/**
- * Сбрасывает пароль по ссылке для восстановления
- * @summary Сброс пароля
- */
-const postAuthResetPassword = <TData = AxiosResponse<DocsSuccessResponseWithoutData>>(
-    docsResetPasswordRequest: DocsResetPasswordRequest, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.post(
-      `http://217.114.11.158:8081/auth/reset-password`,
-      docsResetPasswordRequest,options
-    );
-  }
-
-return {postAuthAccess,getAuthCheck,postAuthForgotPassword,postAuthLogin,postAuthLogout,postAuthRefresh,postAuthResetPassword}};
+	return {
+		postAuthAccess,
+		getAuthCheck,
+		postAuthForgotPassword,
+		postAuthLogin,
+		postAuthLogout,
+		postAuthRefresh,
+		postAuthResetPassword
+	}
+};
 export type PostAuthAccessResult = AxiosResponse<DocsSuccessResponseWithoutData>
 export type GetAuthCheckResult = AxiosResponse<DocsSuccessResponseWithoutData>
 export type PostAuthForgotPasswordResult = AxiosResponse<DocsSuccessResponseWithoutData>
