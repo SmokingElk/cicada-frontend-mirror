@@ -180,7 +180,9 @@ export default function GameBoard({
         isDraggablePiece={allowMove ? isDraggablePiece : () => false}
         customBoardStyle={{
           pointerEvents:
-            allowMove && game.turn() == playerColor ? "all" : "none",
+            !game.isGameOver() && allowMove && game.turn() == playerColor
+              ? "all"
+              : "none",
         }}
         boardOrientation={playerColor === "w" ? "white" : "black"}
         customDarkSquareStyle={{
