@@ -19,7 +19,6 @@ export default function GameSidebar({
   boardSize,
 }: GameSidebarProps) {
   const [currentItem, setCurrentItem] = useState(0);
-  console.log(boardSize - 48);
 
   return (
     <div className={cn("w-full flex flex-col gap-4 h-full", className)}>
