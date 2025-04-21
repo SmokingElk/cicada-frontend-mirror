@@ -5,6 +5,7 @@ import React, { Ref, useEffect, useState } from "react";
 import { Chessboard } from "react-chessboard";
 import { cn } from "@/lib/utils";
 import { Styleable } from "@/lib/types";
+import { toast } from "sonner";
 
 const availableMarkStyle = {
   background: "radial-gradient(circle, rgba(0,0,0,.1) 25%, transparent 25%)",
@@ -25,6 +26,11 @@ interface BoardTheme {
 interface GameBoardProps extends Styleable {
   addMove: (move: Move) => void;
   boardRef: Ref<HTMLDivElement>;
+  allowMove: boolean;
+
+  draw: () => void;
+  win: () => void;
+  lose: () => void;
 }
 
 function createAvailableMoves(
@@ -47,6 +53,10 @@ export default function GameBoard({
   className = "",
   addMove,
   boardRef,
+  allowMove,
+  draw,
+  win,
+  lose,
 }: GameBoardProps) {
   const [game, setGame] = useState(new Chess());
   const [moveSquares, setMoveSquares] = useState({});
@@ -70,12 +80,16 @@ export default function GameBoard({
 
   function opponentMove() {
     const moves = game.moves();
+    if (moves.length == null) return;
+
     const randomMove = moves[Math.floor(Math.random() * moves.length)];
 
     makeMove(randomMove);
   }
 
-  function showIncorrectMoveMessage(move: Move) {}
+  function showIncorrectMoveMessage() {
+    toast.error(`Недопустимый ход!`);
+  }
 
   function onDragStart(piece: String, sourceSquare: Square) {
     if (!showAvailableMoves) return;
@@ -95,24 +109,46 @@ export default function GameBoard({
     targetSquare: Square,
     piece: String
   ): boolean {
-    const move = makeMove({
-      from: sourceSquare,
-      to: targetSquare,
-      promotion: piece[1].toLowerCase(),
-    });
+    if (!allowMove) return false;
 
-    if (move == null) {
-      showIncorrectMoveMessage(move);
-      return false;
+    let move = null;
+
+    try {
+      move = makeMove({
+        from: sourceSquare,
+        to: targetSquare,
+        promotion: piece[1].toLowerCase(),
+      });
+    } catch (error) {
+      showIncorrectMoveMessage();
     }
 
-    return true;
+    return move != null;
   }
 
   useEffect(
     function () {
-      if (game.turn() == playerColor) return;
+      if (game.turn() == playerColor || game.isGameOver()) return;
       opponentMove();
+    },
+    [game]
+  );
+
+  useEffect(
+    function () {
+      if (!game.isGameOver()) return;
+
+      if (game.isDraw()) {
+        draw();
+        return;
+      }
+
+      const playerWin = game.turn() != playerColor;
+      if (playerWin) {
+        win();
+      } else {
+        lose();
+      }
     },
     [game]
   );
@@ -124,7 +160,7 @@ export default function GameBoard({
     piece: string;
     sourceSquare: Square;
   }): boolean {
-    return piece[0] == playerColor;
+    return piece[0] == playerColor && !game.isGameOver();
   }
 
   return (
@@ -141,9 +177,12 @@ export default function GameBoard({
         onPieceDragBegin={onDragStart}
         onPieceDragEnd={onDragEnd}
         customSquareStyles={{ ...moveSquares }}
-        isDraggablePiece={isDraggablePiece}
+        isDraggablePiece={allowMove ? isDraggablePiece : () => false}
         customBoardStyle={{
-          pointerEvents: game.turn() == playerColor ? "all" : "none",
+          pointerEvents:
+            !game.isGameOver() && allowMove && game.turn() == playerColor
+              ? "all"
+              : "none",
         }}
         boardOrientation={playerColor === "w" ? "white" : "black"}
         customDarkSquareStyle={{
