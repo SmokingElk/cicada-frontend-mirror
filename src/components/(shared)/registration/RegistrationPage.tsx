@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
-import { get as createUsersClient } from "@/../api/users/users";
+import {getUserAPI as createUsersClient} from "@/../api/users/users";
 
 const { postUsersCreate } = createUsersClient();
 
