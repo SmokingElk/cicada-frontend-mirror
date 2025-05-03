@@ -6,6 +6,7 @@ import AggregateProvider from "@/providers/aggregateProvider";
 import Header from "@/components/(shared)/framing/header";
 import ThemeToggle from "@/providers/items/themeToggle";
 import Footer from "@/components/(shared)/framing/footer";
+export const dynamic = 'force-dynamic';
 
 const montserrat = Montserrat_Alternates({
   subsets: ["latin", "cyrillic"],

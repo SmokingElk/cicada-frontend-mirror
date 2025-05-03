@@ -1,74 +1,97 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import Image from "next/image";
-import { cn } from "@/lib/utils";
-import LineSeparator from "@/components/(shared)/common/lineSeparator";
-import AvatarPlaceholder from "@/../public/avatars/avatarPlaceholder.png";
+import { useState, useEffect } from 'react'
+import Image, { StaticImageData } from 'next/image'
+import { cn, normalizeUrl } from '@/lib/utils'
+import LineSeparator from '@/components/(shared)/common/lineSeparator'
+import AvatarPlaceholder from '@/../public/avatars/avatarPlaceholder.png'
+import type { GetProfileResult } from '@/../api/users/users'
 
-export default function profileInfoContent() {
-  const [username, setUsername] = useState("playerNickname");
-  const [age, setAge] = useState(20);
-  const [city, setCity] = useState("Москва");
-  const [description, setDescription] = useState("Lorem ipsum sit dolor amit.");
+interface ProfileInfoProps {
+  profile: GetProfileResult['data'] | null
+}
 
-  const [avatar, setAvatar] = useState(AvatarPlaceholder);
+interface ViewState {
+  username: string
+  age: number | null
+  city: string
+  description: string
+  avatar: string | StaticImageData
+}
+
+export default function ProfileInfoContent({ profile }: ProfileInfoProps) {
+  const [view, setView] = useState<ViewState>({
+    username: '',
+    age: null,
+    city: '',
+    description: '',
+    avatar: AvatarPlaceholder,
+  })
+
+  useEffect(() => {
+    if (!profile?.data) return
+    const p = profile.data
+    setView({
+      username: p.username ?? 'Username',
+      age: p.age ?? null,
+      city: p.location ?? '',
+      description: p.description ?? '',
+      avatar: p.avatar_url ? normalizeUrl(p.avatar_url) : AvatarPlaceholder,
+    })
+  }, [profile])
+
+  const ageText =
+    view.age === null || view.age === -1 ? 'Возраст не указан' : `${view.age} лет`
+  const cityText = view.city || 'Город не указан'
 
   return (
-      <div className="flex flex-col-reverse md:flex-row gap-4 justify-stretch">
-        <div className="w-full">
-          <div className="w-full">
-            <input
-                className="font-montserrat text-foreground text-2xl md:text-4xl w-full bg-transparent outline-none font-semibold h-[70px]"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-            ></input>
-            <LineSeparator width={100} className="mt-0 mb-9"/>
-          </div>
+    <div className="flex flex-col-reverse md:flex-row gap-4 justify-stretch">
+      <div className="w-full">
+        <p className="font-montserrat text-foreground text-2xl md:text-4xl font-semibold h-[70px]">
+          {view.username || 'Никнейм'}
+        </p>
+        <LineSeparator width={100} className="mt-0 mb-9" />
 
-          <div className="w-full text-xl text-foreground font-roboto mb-14">
-            {age} лет, {city}
-          </div>
+        <div className="w-full text-xl text-foreground font-roboto mb-14">
+          {cityText}, {ageText}
+        </div>
 
-          <div className="font-montserrat text-foreground text-2xl font-semibold mb-5">
-            Описание:
-          </div>
+        <div className="font-montserrat text-foreground text-2xl font-semibold mb-5">
+          Описание:
+        </div>
 
-          <textarea
-              className={cn(
-                  "border-[2px] border-foreground w-full h-[260px] p-4 box-border ",
-                  "outline-none resize-none bg-transparent",
-                  "font-main text-xl text-foreground"
-              )}
-              placeholder="Коротко обо мне..."
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-          ></textarea>
+        <p
+          className={cn(
+            'border-[2px] border-foreground w-full min-h-[260px] p-4 box-border',
+            'font-main text-xl text-foreground'
+          )}
+        >
+          {view.description || 'Коротко обо мне...'}
+        </p>
+      </div>
+
+      <div className="self-start">
+        <div className="relative w-[260px] h-[260px] md:w-[320px] md:h-[320px]">
+          <Image
+            src={view.avatar}
+            fill
+            alt="avatar"
+            className="rounded-full object-cover"
+          />
         </div>
-        <div className="w-full hidden md:flex justify-center">
-          <div className="w-[300px] h-[300px]">
-            <Image
-                src={avatar}
-                width={300}
-                height={300}
-                objectFit="cover"
-                alt="avatar"
-                className="rounded-full"
-            />
-          </div>
+      </div>
+
+      <div className="md:hidden w-full flex justify-center">
+        <div className="w-[200px] h-[200px]">
+          <Image
+            src={view.avatar}
+            width={200}
+            height={200}
+            alt="avatar"
+            className="rounded-full object-cover"
+          />
         </div>
-        <div className="md:hidden w-full flex justify-center">
-          <div className="w-[200px] h-[200px]">
-            <Image
-                src={avatar}
-                width={200}
-                height={200}
-                objectFit="cover"
-                alt="avatar"
-                className="rounded-full"
-            />
-          </div>
-        </div>
-        </div>
-        );
-        }
+      </div>
+    </div>
+  )
+}

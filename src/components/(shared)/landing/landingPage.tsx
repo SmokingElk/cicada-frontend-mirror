@@ -47,29 +47,27 @@ export default function LandingPage() {
         <Wrapper className="flex flex-col md:flex-row justify-between items-center gap-x-10">
           <div className="w-full md:w-1/2 h-screen md:h-auto flex flex-col justify-center space-y-6">
             <h1 className="font-semibold text-3xl md:text-5xl leading-tight">
-              Слоган компании, который мы еще не придумали
+              Играй. Учись. Побеждай.
             </h1>
-            <LineSeparator />
+            <LineSeparator/>
             <div className="text-xl leading-relaxed pt-20">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
-              eleifend, nulla ut posuere maximus, diam eros mattis dui, ac
-              rhoncus urna lorem elementum lorem. Duis auctor ipsum vitae
-              fermentum porttitor. Praesent semper eu dui at vulputate. Integer
-              vel sodales justo, sit amet rhoncus augue.
+              Онлайн-платформа для тех, кто хочет расти в шахматах: быстрые партии с живыми соперниками,
+              пошаговые уроки от мастеров, разборы партий и рейтинговые турниры 24/7. Присоединяйтесь
+              — прокачайте мышление и почувствуйте вкус побед уже сегодня.
             </div>
             <Button className="w-1/2" variant="transparrent" size="xl" asChild>
               <Link href="/lobby">Играть</Link>
             </Button>
           </div>
           <div className="w-full md:w-1/2">
-            <LandingCarousel />
+            <LandingCarousel/>
           </div>
         </Wrapper>
       </section>
       <section className="flex flex-col items-center w-full bg-muted">
         <Wrapper className={"mt-14"}>
           <div className="hidden md:flex flex-row justify-between gap-x-10 w-full">
-            <LineSeparator direction="left" className="flex-1" />
+            <LineSeparator direction="left" className="flex-1"/>
             <LineSeparator direction="left" className="flex-1" />
           </div>
           <div

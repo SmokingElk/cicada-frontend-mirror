@@ -3,8 +3,8 @@ import Credentials from "next-auth/providers/credentials";
 import type { RequestInternal } from "next-auth";
 import type { JWT } from "next-auth/jwt";
 import axios from "axios";
-import { get as authApi } from "@/../api/auth/auth";
-const { postAuthLogin, postAuthRefresh, postAuthLogout } = authApi();
+import { getAuthAPI as authApi} from "@/../api/auth/auth";
+const { postAuthLogin, postAuthRefresh, getAuthLogout } = authApi();
 
 async function refreshAccessToken(old: JWT): Promise<JWT> {
 	try {
@@ -89,7 +89,7 @@ export const authOptions: NextAuthOptions = {
 		async signOut({ token }) {
 			if (!token?.accessToken) return;
 			try {
-				await postAuthLogout({
+				await getAuthLogout({
 					headers: {
 						Authorization: `Bearer ${token.accessToken}`,
 						"Content-Type": "application/json",
