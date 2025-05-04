@@ -35,7 +35,7 @@ deploy_prod:
   needs: ["build_app"]
   only: [main]
   script:
-    - npx vercel deploy --token "$VERCEL_TOKEN" --yes
+    - npx vercel deploy --prod --token "$VERCEL_TOKEN" --yes
   environment:
     name: production
     url: $CI_ENVIRONMENT_URL
