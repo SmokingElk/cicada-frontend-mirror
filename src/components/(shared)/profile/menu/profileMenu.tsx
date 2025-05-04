@@ -1,0 +1,44 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Styleable } from "@/lib/types";
+import { cn } from "@/lib/utils";
+import menuItems from "@/hardcode/profileMenuItems";
+import RhombusDecor from "@/components/(shared)/common/rhombusDecor";
+
+export default function ProfileMenu({ className = "" }: Styleable) {
+  const pathname = usePathname();
+
+  let activeIndex = menuItems.findIndex((e) => pathname.includes(e.href));
+
+  return (
+    <div
+      className={cn(
+        "w-full grid justify-items-center items-center border-b-[2px] border-foreground grid-rows-[60px_0px]",
+        className
+      )}
+      style={{ gridTemplateColumns: `repeat(${menuItems.length}, 150px)` }}
+    >
+      {menuItems.map((e, index) => (
+        <Link
+          key={e.href}
+          href={e.href}
+          className={cn(
+            "font-roboto text-lg text-foreground",
+            index == activeIndex ? "opacity-100" : "opacity-50"
+          )}
+        >
+          {e.text}
+        </Link>
+      ))}
+
+      <div
+        className="transition-all"
+        style={{ gridColumnStart: `${activeIndex + 1}` }}
+      >
+        <RhombusDecor />
+      </div>
+    </div>
+  );
+}

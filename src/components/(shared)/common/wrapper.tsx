@@ -1,15 +1,17 @@
-import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { Styleable, WithChildren } from "@/lib/types";
 
-interface WrapperProps {
-	children: ReactNode;
-	className?: string;
-}
+interface WrapperProps extends Styleable, WithChildren {}
 
 export default function Wrapper({ children, className }: WrapperProps) {
-	return (
-		<div className={cn("max-w-screen-xl px-8 sm:px-10 lg:px-16 mx-auto", className)}>
-			{children}
-		</div>
-	);
+  return (
+    <div
+      className={cn(
+        "px-3 w-screen md:max-w-screen-md md:px-10 lg:max-w-screen-lg lg:px-16 mx-auto",
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
 }
