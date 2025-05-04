@@ -1,0 +1,42 @@
+variables:
+  NPM_CONFIG_LEGACY_PEER_DEPS: "true"
+
+default:
+  image: node:20
+  tags: []
+  cache:
+    key: "$CI_COMMIT_REF_SLUG"
+    paths:
+      - node_modules/
+
+stages:
+  - build
+  - deploy
+
+build_app:
+  stage: build
+  script:
+    - npm ci --no-audit --no-fund
+    - npx vercel pull --yes --environment=preview --token "$VERCEL_TOKEN"
+    - npx vercel build --token "$VERCEL_TOKEN"
+
+deploy_preview:
+  stage: deploy
+  needs: ["build_app"]
+  except: [main]
+  script:
+    - npx vercel deploy --token "$VERCEL_TOKEN" --yes
+  environment:
+    name: review/$CI_COMMIT_REF_SLUG
+    url: $CI_ENVIRONMENT_URL
+
+deploy_prod:
+  stage: deploy
+  needs: ["build_app"]
+  only: [main]
+  script:
+    - npx vercel deploy --prod --token "$VERCEL_TOKEN" --yes
+  environment:
+    name: production
+    url: $CI_ENVIRONMENT_URL
+
