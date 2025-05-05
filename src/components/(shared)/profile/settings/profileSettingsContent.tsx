@@ -173,10 +173,11 @@ export default function ProfileSettingsContent({
 
 				<LineSeparator width={100} />
 
-				<Dialog>
-					<DialogTrigger asChild>
-						<Button className="w-fit mr-10 text-lg">Сменить пароль</Button>
-					</DialogTrigger>
+				<div className="flex flex-row gap-4 items-center"> {/* Добавлен этот контейнер */}
+					<Dialog>
+						<DialogTrigger asChild>
+							<Button className="text-lg" variant="transparrent">Сменить пароль</Button>
+						</DialogTrigger>
 
 					<DialogContent className="sm:max-w-[420px] p-6">
 						<DialogHeader>
@@ -219,7 +220,7 @@ export default function ProfileSettingsContent({
 
 							<DialogFooter className="mt-4">
 								<DialogClose asChild>
-									<Button type="submit" disabled={isSubmitting} className="text-lg">
+									<Button type="submit" disabled={isSubmitting} className="text-lg" variant="transparrent">
 										{isSubmitting ? 'Сохраняем…' : 'Сохранить'}
 									</Button>
 								</DialogClose>
@@ -228,9 +229,15 @@ export default function ProfileSettingsContent({
 					</DialogContent>
 				</Dialog>
 
-				<Button onClick={saveProfile} disabled={saving} className="w-fit text-lg">
+				<Button
+					onClick={saveProfile}
+					disabled={saving}
+					className="text-lg"
+					variant="transparrent"
+				>
 					{saving ? 'Сохраняем…' : 'Сохранить'}
 				</Button>
+				</div>
 			</div>
 
 			<div className="self-start">
