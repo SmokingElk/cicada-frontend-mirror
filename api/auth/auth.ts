@@ -35,7 +35,7 @@ const postAuthAccess = <TData = AxiosResponse<DocsSuccessResponseWithoutData>>(
     docsAccessRequest: DocsAccessRequest, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.post(
-      `http://217.114.11.158:8081/auth/access`,
+      `https://cicada-chess.ru:8081/auth/access`,
       docsAccessRequest,options
     );
   }
@@ -48,7 +48,7 @@ const getAuthCheck = <TData = AxiosResponse<DocsSuccessResponseWithoutData>>(
      options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
-      `http://217.114.11.158:8081/auth/check`,options
+      `https://cicada-chess.ru:8081/auth/check`,options
     );
   }
 
@@ -60,7 +60,7 @@ const postAuthForgotPassword = <TData = AxiosResponse<DocsSuccessResponseWithout
     docsForgotPasswordRequest: DocsForgotPasswordRequest, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.post(
-      `http://217.114.11.158:8081/auth/forgot-password`,
+      `https://cicada-chess.ru:8081/auth/forgot-password`,
       docsForgotPasswordRequest,options
     );
   }
@@ -73,7 +73,7 @@ const postAuthLogin = <TData = AxiosResponse<PostAuthLogin200>>(
     docsLoginRequest: DocsLoginRequest, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.post(
-      `http://217.114.11.158:8081/auth/login`,
+      `https://cicada-chess.ru:8081/auth/login`,
       docsLoginRequest,options
     );
   }
@@ -86,7 +86,7 @@ const getAuthLogout = <TData = AxiosResponse<DocsSuccessResponseWithoutData>>(
      options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
-      `http://217.114.11.158:8081/auth/logout`,options
+      `https://cicada-chess.ru:8081/auth/logout`,options
     );
   }
 
@@ -98,7 +98,7 @@ const getAuthMe = <TData = AxiosResponse<GetAuthMe200>>(
      options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
-      `http://217.114.11.158:8081/auth/me`,options
+      `https://cicada-chess.ru:8081/auth/me`,options
     );
   }
 
@@ -110,7 +110,7 @@ const postAuthRefresh = <TData = AxiosResponse<PostAuthRefresh200>>(
     docsRefreshRequest: DocsRefreshRequest, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.post(
-      `http://217.114.11.158:8081/auth/refresh`,
+      `https://cicada-chess.ru:8081/auth/refresh`,
       docsRefreshRequest,options
     );
   }
@@ -123,7 +123,7 @@ const postAuthResetPassword = <TData = AxiosResponse<DocsSuccessResponseWithoutD
     docsResetPasswordRequest: DocsResetPasswordRequest, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.post(
-      `http://217.114.11.158:8081/auth/reset-password`,
+      `https://cicada-chess.ru:8081/auth/reset-password`,
       docsResetPasswordRequest,options
     );
   }

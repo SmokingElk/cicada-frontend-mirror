@@ -22,7 +22,6 @@ export interface DocsErrorResponse {
 }
 
 export interface DocsProfile {
-  username: string;
   age?: number;
   avatar_url?: string;
   created_at?: string;
