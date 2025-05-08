@@ -22,28 +22,9 @@ interface ColorSelectorProps extends Styleable {
   setColor: () => void;
 }
 
-function ColorSelector({
-                         selected,
-                         setColor,
-                         className = "",
-                       }: ColorSelectorProps) {
-  const center =
-      "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2";
-
-  return (
-      <div className="relative w-6 h-4 cursor-pointer" onClick={setColor}>
-        <RhombusDecor
-            className={cn(center, "border-[3px] size-5 border-primary", className)}
-        />
-        {selected && <RhombusDecor className={cn(center, "size-2 bg-primary")} />}
-      </div>
-  );
-}
 
 export default function LobbyCreate({ className = "" }: Styleable) {
-  const [gameName, setGameName] = useState("");
   const [moveTime, setMoveTime] = useState(5 * 60);
-  const [isWhite, setIsWhite] = useState(false);
   const [createOpen, setCreateOpen] = useState(false);
 
   const timeMin = 3 * 60;
@@ -55,7 +36,7 @@ export default function LobbyCreate({ className = "" }: Styleable) {
         <div
             className={cn(
                 "w-full transition-all duration-300 overflow-hidden",
-                createOpen ? "max-h-[1000px]" : "max-h-0"
+                createOpen ? "max-h-[600px]" : "max-h-0"
             )}
         >
           <div className="w-full p-8 box-border border-4 border-primary relative mb-4">
@@ -67,19 +48,7 @@ export default function LobbyCreate({ className = "" }: Styleable) {
             </div>
 
             <div className="w-full flex justify-center items-center font-montserrat font-semibold text-foreground text-2xl mb-8">
-              Создать игру
-            </div>
-
-            <div className="w-full border-b-2 border-foreground mb-8">
-              <input
-                  className={cn(
-                      "font-roboto text-foreground text-lg w-full bg-transparent outline-none",
-                      "placeholder:italic placeholder:text-foreground placeholder:opacity-50"
-                  )}
-                  placeholder="Введите имя игры"
-                  value={gameName}
-                  onChange={(e) => setGameName(e.target.value)}
-              />
+              Настройки игры
             </div>
 
             <div className="w-full">
@@ -111,35 +80,31 @@ export default function LobbyCreate({ className = "" }: Styleable) {
                 ))}
               </div>
 
-              <div className="w-full">
-                <div className="font-roboto italic text-foreground text-lg mb-2">
-                  Ваш цвет: {isWhite ? "белый" : "черный"}
-                </div>
-
-                <div className="flex gap-6">
-                  <ColorSelector
-                      setColor={() => setIsWhite(false)}
-                      selected={!isWhite}
-                  />
-                  <ColorSelector
-                      setColor={() => setIsWhite(true)}
-                      selected={isWhite}
-                      className="bg-background"
-                  />
-                </div>
-              </div>
             </div>
           </div>
 
           <div className="w-full mb-4">
             <Button
-                className="bg-foreground w-full h-16 rounded-none hover:bg-primary"
+                className="bg-foreground w-full h-16 hover:bg-primary mb-4" variant="transparrent"
                 asChild
             >
               <Link href="/game" className="flex justify-center w-full gap-4">
                 <RhombusDecor className="bg-primary size-5" />
                 <div className="font-montserrat font-semibold text-background text-2xl">
-                  Готово
+                  Дружеский бой
+                </div>
+                <RhombusDecor className="bg-primary size-5" />
+              </Link>
+            </Button>
+
+            <Button
+                className="bg-foreground w-full h-16 hover:bg-primary" variant="transparrent"
+                asChild
+            >
+              <Link href="/game" className="flex justify-center w-full gap-4">
+                <RhombusDecor className="bg-primary size-5" />
+                <div className="font-montserrat font-semibold text-background text-2xl">
+                  Подключиться по ID
                 </div>
                 <RhombusDecor className="bg-primary size-5" />
               </Link>

@@ -29,6 +29,7 @@ export interface DocsProfile {
   location?: string;
   updated_at?: string;
   user_id?: string;
+  username?: string;
 }
 
 export interface DocsSuccessResponse {
