@@ -5,7 +5,7 @@ export default {
 			target: './api/auth/auth.ts',
 			mode: 'split',
 			client: 'axios',
-			baseUrl: 'http://217.114.11.158:8081',
+			baseUrl: 'https://cicada-chess.ru:8081',
 		},
 	},
 
@@ -15,7 +15,7 @@ export default {
 			target: './api/users/users.ts',
 			mode: 'split',
 			client: 'axios',
-			baseUrl: 'http://217.114.11.158:8080',
+			baseUrl: 'https://cicada-chess.ru:8080',
 		},
 	},
 };
