@@ -26,20 +26,21 @@ export default function LandingPage() {
     theme === "dark" ? featureBestMovesDark : featureBestMovesLight;
   const features = [
     {
-      description: "Получать подсказки о хороших ходах в реальном времени",
+      description: "Играть онлайн с последующим полным анализом партии",
       image: featureHints,
     },
     {
       description:
-        "Анализировать уровень вашей игры и игры противника на протяжении всей партии",
+        "Получать оценку своей игры и стратегии соперника по итогам матча",
       image: featureDynamics,
     },
     {
       description:
-        "Автоматически определять лучшие моменты для публикации их в ленте",
+        "Автоматически формировать нарезки лучших моментов для публикации",
       image: featureBestMoves,
     },
   ];
+
 
   return (
     <>
@@ -73,24 +74,24 @@ export default function LandingPage() {
           <div
               className="flex flex-col md:flex-row md:flex-wrap justify-between items-start gap-y-8 mt-14 mb-28 mx-3 md:mx-20">
             <LandingCard
-                title="1500+ партий"
-                description="Проанализировано нашими алгоритмами с целью выявления интересных моментов"
+                title="Возможность анализа партий"
+                description="Наши алгоритмы готовятся выделить самые яркие моменты"
                 className="w-full md:w-[45%]"
             />
             <div className="md:hidden gap-x-10 w-full">
               <LineSeparator direction="left" className="flex-1"/>
             </div>
             <LandingCard
-                title="10000+ игроков"
-                description="Пользуются нашим сервисом для разработки собственных стратегий игры"
+                title="Игроки в ожидании старта"
+                description="Наша платформа поможет им разрабатывать собственные стратегии"
                 className="w-full md:w-[45%]"
             />
             <div className="md:hidden gap-x-10 w-full">
               <LineSeparator direction="left" className="flex-1"/>
             </div>
             <LandingCard
-                title="Более 50"
-                description="Новых нарезок с лучшими моментами из партии публикуется ежедневно"
+                title="Бот-помощник"
+                description="Готовится к запуску - противник не устоит"
                 className="w-full md:w-[45%]"
             />
           </div>
