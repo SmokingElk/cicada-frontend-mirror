@@ -3,11 +3,11 @@ import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
 import GamePage from "@/components/(shared)/game/gamePage";
 
-interface GameProps {
-  params: { id: string };
+interface PageProps {
+  params: Promise<{ id: string }>;
 }
 
-export default async function Game({ params }: GameProps) {
+export default async function Game({ params }: PageProps) {
   const session = await getServerSession(authOptions);
   if (!session) redirect("/login");
 
