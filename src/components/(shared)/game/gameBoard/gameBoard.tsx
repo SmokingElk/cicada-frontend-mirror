@@ -85,7 +85,11 @@ export default function GameBoard({
 
   useEffect(() => {
     if (opponentMove == null || game.turn() == playerColor) return;
-    makeMove(opponentMove);
+    try {
+      makeMove(opponentMove);
+    } catch (err) {
+      console.error(err);
+    }
   }, [opponentMove]);
 
   function showIncorrectMoveMessage() {
@@ -141,8 +145,6 @@ export default function GameBoard({
       const playerWin = game.turn() != playerColor;
       if (playerWin) {
         win();
-      } else {
-        lose();
       }
     },
     [game]
@@ -155,7 +157,7 @@ export default function GameBoard({
     piece: string;
     sourceSquare: Square;
   }): boolean {
-    return piece[0] == playerColor && !game.isGameOver();
+    return piece[0] == playerColor;
   }
 
   return (
@@ -172,7 +174,7 @@ export default function GameBoard({
         onPieceDragBegin={onDragStart}
         onPieceDragEnd={onDragEnd}
         customSquareStyles={{ ...moveSquares }}
-        isDraggablePiece={allowMove ? isDraggablePiece : () => false}
+        isDraggablePiece={isDraggablePiece}
         customBoardStyle={{
           pointerEvents:
             !game.isGameOver() && allowMove && game.turn() == playerColor

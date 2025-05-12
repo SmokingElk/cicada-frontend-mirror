@@ -34,6 +34,11 @@ interface WSMessageGameStart {
   type: typeof MESSAGE_TYPE_GAME_START;
   data: {
     color: string;
+    game: {
+      players: {
+        id: string;
+      }[];
+    };
   };
 }
 
@@ -67,6 +72,7 @@ export default function GamePage({ id, session }: GamePageProps) {
   const [opponentMove, setOpponentMove] = useState<string | null>(null);
 
   const [userId, setUserId] = useState<string | null>(null);
+  const [opponentId, setOpponentId] = useState<string | null>(null);
   const [playerColor, setPlayerColor] = useState<string>("w");
 
   useEffect(() => {
@@ -103,10 +109,26 @@ export default function GamePage({ id, session }: GamePageProps) {
         type: MESSAGE_TYPE_MOVE,
         payload: {
           user_id: userId,
-          move: move.to,
+          move: `${move.from}-${move.to}`,
         },
       };
-      console.log(readyState, JSON.stringify(message));
+
+      sendMessage(JSON.stringify(message));
+    },
+    [readyState, sendMessage, gameStarted, userId]
+  );
+
+  const sendWin = useCallback(
+    (id: string | null = null) => {
+      if (!gameStarted || userId == null) return;
+
+      const message: WSMessageFinish = {
+        type: MESSAGE_TYPE_FINISH,
+        payload: {
+          winner_id: id ?? userId,
+        },
+      };
+
       sendMessage(JSON.stringify(message));
     },
     [readyState, sendMessage, gameStarted, userId]
@@ -128,7 +150,15 @@ export default function GamePage({ id, session }: GamePageProps) {
           "set color:",
           (message as WSMessageGameStart).data.color[0]
         );
-        setPlayerColor((message as WSMessageGameStart).data.color[0]);
+        const startMsg: WSMessageGameStart = message as WSMessageGameStart;
+        setPlayerColor(startMsg.data.color[0]);
+
+        for (let player of startMsg.data.game.players) {
+          if (player.id != userId) {
+            setOpponentId(player.id);
+            break;
+          }
+        }
       },
 
       [MESSAGE_TYPE_START]: () => {
@@ -190,10 +220,11 @@ export default function GamePage({ id, session }: GamePageProps) {
     toast.success("Поражение!");
   };
 
-  const giveUp = () => {
+  const giveUp = useCallback(() => {
+    if (opponentId == null) return;
     setAllowMove(false);
-    toast.success("Сдача!");
-  };
+    sendWin(opponentId);
+  }, [opponentId]);
 
   const draw = () => {
     setAllowMove(false);
@@ -221,7 +252,7 @@ export default function GamePage({ id, session }: GamePageProps) {
           opponentMove={opponentMove}
           allowMove={allowMove && gameStarted}
           draw={draw}
-          win={win}
+          win={sendWin}
           lose={lose}
           playerColor={playerColor}
         />
