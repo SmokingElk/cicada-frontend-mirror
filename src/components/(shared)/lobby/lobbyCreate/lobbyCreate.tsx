@@ -115,7 +115,7 @@ export default function LobbyCreate({ className = "" }: Styleable) {
         {!createOpen && (
             <div className="w-full flex justify-center">
               <Button
-                  className="w-5/6 h-16 text-2xl"
+                  className="w-full h-16 text-2xl max-w-xs"
                   variant="transparrent"
                   size="xl"
                   onClick={() => setCreateOpen(true)}
