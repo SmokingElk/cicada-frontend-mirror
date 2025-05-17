@@ -15,8 +15,6 @@ import type { RawAxiosRequestHeaders } from "axios";
 import { start } from "repl";
 import { json } from "stream/consumers";
 
-const wsEndpoint = "ws://localhost:8080/ws/game";
-
 const MESSAGE_TYPE_GAME_START = "game_start";
 const MESSAGE_TYPE_START = "start";
 const MESSAGE_TYPE_MOVE = "move";
@@ -98,7 +96,9 @@ export default function GamePage({ id, session }: GamePageProps) {
   const boardRef = useRef<HTMLDivElement>(null);
 
   const { sendMessage, lastMessage, readyState } = useWS<WSMessage>(
-    userId ? `${wsEndpoint}/${id}?user_id=${userId}` : null
+    userId
+      ? `${process.env.NEXT_PUBLIC_MULTIPLAYER_SERVICE_URL}/${id}?user_id=${userId}`
+      : null
   );
 
   const sendMove = useCallback(
