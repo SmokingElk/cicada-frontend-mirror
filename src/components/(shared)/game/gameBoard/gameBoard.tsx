@@ -24,9 +24,12 @@ interface BoardTheme {
 }
 
 interface GameBoardProps extends Styleable {
-  addMove: (move: Move) => void;
+  sendMove: (move: Move) => void;
+  newMove: (move: Move) => void;
+  opponentMove: string | null;
   boardRef: Ref<HTMLDivElement>;
   allowMove: boolean;
+  playerColor: string;
 
   draw: () => void;
   win: () => void;
@@ -51,16 +54,18 @@ function createAvailableMoves(
 
 export default function GameBoard({
   className = "",
-  addMove,
+  sendMove,
+  newMove,
   boardRef,
   allowMove,
   draw,
   win,
   lose,
+  playerColor,
+  opponentMove,
 }: GameBoardProps) {
   const [game, setGame] = useState(new Chess());
   const [moveSquares, setMoveSquares] = useState({});
-  const playerColor: String = "w"; // достать с сервера
   const [showAvailableMoves, setShowAvailableMoves] = useState(true); // если нужно будет отключать
 
   const [boardTheme, setBoardTheme] = useState<BoardTheme>({
@@ -73,19 +78,19 @@ export default function GameBoard({
     const res = newGame.move(move);
     setGame(newGame);
 
-    if (move != null) addMove(res);
+    if (res != null) newMove(res);
 
     return res;
   }
 
-  function opponentMove() {
-    const moves = game.moves();
-    if (moves.length == null) return;
-
-    const randomMove = moves[Math.floor(Math.random() * moves.length)];
-
-    makeMove(randomMove);
-  }
+  useEffect(() => {
+    if (opponentMove == null || game.turn() == playerColor) return;
+    try {
+      makeMove(opponentMove);
+    } catch (err) {
+      console.error(err);
+    }
+  }, [opponentMove]);
 
   function showIncorrectMoveMessage() {
     toast.error(`Недопустимый ход!`);
@@ -119,20 +124,14 @@ export default function GameBoard({
         to: targetSquare,
         promotion: piece[1].toLowerCase(),
       });
+
+      if (move != null) sendMove(move);
     } catch (error) {
       showIncorrectMoveMessage();
     }
 
     return move != null;
   }
-
-  useEffect(
-    function () {
-      if (game.turn() == playerColor || game.isGameOver()) return;
-      opponentMove();
-    },
-    [game]
-  );
 
   useEffect(
     function () {
@@ -146,8 +145,6 @@ export default function GameBoard({
       const playerWin = game.turn() != playerColor;
       if (playerWin) {
         win();
-      } else {
-        lose();
       }
     },
     [game]
@@ -160,7 +157,7 @@ export default function GameBoard({
     piece: string;
     sourceSquare: Square;
   }): boolean {
-    return piece[0] == playerColor && !game.isGameOver();
+    return piece[0] == playerColor;
   }
 
   return (
@@ -177,7 +174,7 @@ export default function GameBoard({
         onPieceDragBegin={onDragStart}
         onPieceDragEnd={onDragEnd}
         customSquareStyles={{ ...moveSquares }}
-        isDraggablePiece={allowMove ? isDraggablePiece : () => false}
+        isDraggablePiece={isDraggablePiece}
         customBoardStyle={{
           pointerEvents:
             !game.isGameOver() && allowMove && game.turn() == playerColor

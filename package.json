@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "ovral": "npx orval --config orval.config.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -59,6 +60,7 @@
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.54.2",
     "react-resizable-panels": "^2.1.7",
+    "react-use-websocket": "^4.13.0",
     "recharts": "^2.15.1",
     "sonner": "^1.7.4",
     "tailwind-merge": "^2.6.0",
