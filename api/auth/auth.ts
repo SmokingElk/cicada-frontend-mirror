@@ -16,11 +16,15 @@ import type {
   DocsForgotPasswordRequest,
   DocsLoginRequest,
   DocsRefreshRequest,
+  DocsRegisterRequest,
   DocsResetPasswordRequest,
   DocsSuccessResponseWithoutData,
   GetAuthMe200,
+  PostAuthConfirmAccountParams,
   PostAuthLogin200,
-  PostAuthRefresh200
+  PostAuthRefresh200,
+  PostAuthRegister200,
+  PostAuthResetPasswordParams
 } from './auth.schemas';
 
 
@@ -49,6 +53,20 @@ const getAuthCheck = <TData = AxiosResponse<DocsSuccessResponseWithoutData>>(
  ): Promise<TData> => {
     return axios.get(
       `https://cicada-chess.ru:8081/auth/check`,options
+    );
+  }
+
+/**
+ * Активирует аккаунт пользователя по токену
+ * @summary Подтверждение аккаунта
+ */
+const postAuthConfirmAccount = <TData = AxiosResponse<DocsSuccessResponseWithoutData>>(
+    params: PostAuthConfirmAccountParams, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `https://cicada-chess.ru:8081/auth/confirm-account`,undefined,{
+    ...options,
+        params: {...params, ...options?.params},}
     );
   }
 
@@ -116,24 +134,42 @@ const postAuthRefresh = <TData = AxiosResponse<PostAuthRefresh200>>(
   }
 
 /**
+ * Регистрирует нового пользователя
+ * @summary Регистрация пользователя
+ */
+const postAuthRegister = <TData = AxiosResponse<PostAuthRegister200>>(
+    docsRegisterRequest: DocsRegisterRequest, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `https://cicada-chess.ru:8081/auth/register`,
+      docsRegisterRequest,options
+    );
+  }
+
+/**
  * Сбрасывает пароль по ссылке для восстановления
  * @summary Сброс пароля
  */
 const postAuthResetPassword = <TData = AxiosResponse<DocsSuccessResponseWithoutData>>(
-    docsResetPasswordRequest: DocsResetPasswordRequest, options?: AxiosRequestConfig
+    docsResetPasswordRequest: DocsResetPasswordRequest,
+    params: PostAuthResetPasswordParams, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.post(
       `https://cicada-chess.ru:8081/auth/reset-password`,
-      docsResetPasswordRequest,options
+      docsResetPasswordRequest,{
+    ...options,
+        params: {...params, ...options?.params},}
     );
   }
 
-return {postAuthAccess,getAuthCheck,postAuthForgotPassword,postAuthLogin,getAuthLogout,getAuthMe,postAuthRefresh,postAuthResetPassword}};
+return {postAuthAccess,getAuthCheck,postAuthConfirmAccount,postAuthForgotPassword,postAuthLogin,getAuthLogout,getAuthMe,postAuthRefresh,postAuthRegister,postAuthResetPassword}};
 export type PostAuthAccessResult = AxiosResponse<DocsSuccessResponseWithoutData>
 export type GetAuthCheckResult = AxiosResponse<DocsSuccessResponseWithoutData>
+export type PostAuthConfirmAccountResult = AxiosResponse<DocsSuccessResponseWithoutData>
 export type PostAuthForgotPasswordResult = AxiosResponse<DocsSuccessResponseWithoutData>
 export type PostAuthLoginResult = AxiosResponse<PostAuthLogin200>
 export type GetAuthLogoutResult = AxiosResponse<DocsSuccessResponseWithoutData>
 export type GetAuthMeResult = AxiosResponse<GetAuthMe200>
 export type PostAuthRefreshResult = AxiosResponse<PostAuthRefresh200>
+export type PostAuthRegisterResult = AxiosResponse<PostAuthRegister200>
 export type PostAuthResetPasswordResult = AxiosResponse<DocsSuccessResponseWithoutData>

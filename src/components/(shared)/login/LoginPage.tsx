@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, {useState} from 'react';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
@@ -14,6 +14,11 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 
+import {getAuthAPI as authClient} from "@/../api/auth/auth";
+
+const { postAuthForgotPassword } = authClient();
+
+
 const schema = z.object({
 	email:    z.string().email('Невалидный email'),
 	password: z.string().min(6, 'Минимум 6 символов'),
@@ -26,7 +31,11 @@ export default function LoginPage() {
 		register,
 		handleSubmit,
 		formState: { errors, isSubmitting },
+		watch
 	} = useForm<Values>({ resolver: zodResolver(schema) });
+
+	const [isSendingReset, setIsSendingReset] = useState(false);
+
 
 	const onSubmit = async (values: Values) => {
 		const res = await signIn('credentials', {
@@ -42,6 +51,28 @@ export default function LoginPage() {
 		} else {
 			toast.success('Добро пожаловать!', { duration: 4000 });
 			router.push('/');
+		}
+	};
+
+	const handleForgotPassword = async () => {
+		const email = watch("email");
+
+		if (!email) {
+			toast.error("Сначала введите ваш e-mail");
+			return;
+		}
+
+		try {
+			setIsSendingReset(true);
+			await postAuthForgotPassword({ email });
+			toast.success("Ссылка для сброса пароля отправлена на почту");
+		} catch (err: any) {
+			console.error(err);
+			toast.error(
+				err?.response?.data?.message || "Не удалось отправить письмо. Попробуйте позже"
+			);
+		} finally {
+			setIsSendingReset(false);
 		}
 	};
 
@@ -74,6 +105,17 @@ export default function LoginPage() {
 									{errors.password.message}
 								</p>
 							)}
+						</div>
+
+						<div className="text-right">
+							<button
+								type="button"
+								onClick={handleForgotPassword}
+								disabled={isSendingReset}
+								className="text-sm font-medium text-brown-700 hover:underline disabled:opacity-60"
+							>
+								{isSendingReset ? "Отправляем…" : "Забыли пароль?"}
+							</button>
 						</div>
 					</CardContent>
 

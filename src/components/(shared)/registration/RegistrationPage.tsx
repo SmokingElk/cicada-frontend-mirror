@@ -12,9 +12,9 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
-import {getUserAPI as createUsersClient} from "@/../api/users/users";
+import {getAuthAPI as authClient} from "@/../api/auth/auth";
 
-const { postUsersCreate } = createUsersClient();
+const { postAuthRegister } = authClient();
 
 /**
  * Zod schema для формы регистрации
@@ -51,7 +51,7 @@ export default function RegistrationPage() {
 
 	async function onSubmit(values: RegistrationValues) {
 		try {
-			await postUsersCreate({
+			await postAuthRegister({
 				email: values.email,
 				username: values.username,
 				password: values.password,
