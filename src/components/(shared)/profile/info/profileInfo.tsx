@@ -63,15 +63,15 @@ export default function ProfileInfoContent({ profile }: ProfileInfoProps) {
         <p
           className={cn(
             'border-[2px] border-foreground w-full min-h-[260px] p-4 box-border',
-            'font-main text-xl text-foreground'
+            'font-main text-xl text-foreground mb-5 '
           )}
         >
           {view.description || 'Коротко обо мне...'}
         </p>
       </div>
 
-      <div className="self-start">
-        <div className="relative w-[260px] h-[260px] md:w-[320px] md:h-[320px]">
+      <div className="self-center md:self-start">
+        <div className="relative w-[320px] h-[320px]">
           <Image
             src={view.avatar}
             fill
@@ -81,17 +81,6 @@ export default function ProfileInfoContent({ profile }: ProfileInfoProps) {
         </div>
       </div>
 
-      <div className="md:hidden w-full flex justify-center">
-        <div className="w-[200px] h-[200px]">
-          <Image
-            src={view.avatar}
-            width={200}
-            height={200}
-            alt="avatar"
-            className="rounded-full object-cover"
-          />
-        </div>
-      </div>
     </div>
   )
 }

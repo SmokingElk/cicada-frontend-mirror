@@ -29,32 +29,32 @@ export default function GameSidebar({
         }}
       >
         {gameSidebarMenuItems.map((e, index) => (
-          <div
-            className="relative flex justify-center"
-            key={`game_sidebar_item_${index}`}
-          >
             <div
-              className={cn(
-                "absolute bottom-4 font-roboto text-base text-foreground",
-                index === currentItem ? "opacity-100" : "opacity-50",
-                "hover:opacity-100 transition-all cursor-pointer"
-              )}
-              onClick={() => setCurrentItem(index)}
+                className="relative flex justify-center"
+                key={`game_sidebar_item_${index}`}
             >
-              {e.name}
+                <div
+                    className={cn(
+                        "absolute bottom-3 font-roboto text-base text-foreground text-center whitespace-pre-line",
+                        index === currentItem ? "opacity-100" : "opacity-50",
+                        "hover:opacity-100 transition-all cursor-pointer"
+                    )}
+                    onClick={() => setCurrentItem(index)}
+                >
+                {e.name}
+                </div>
             </div>
-          </div>
-        ))}
+            ))}
 
-        <div
-          className="w-full flex justify-center items-center transition-all"
-          style={{ gridColumnStart: currentItem + 1 }}
-        >
-          <RhombusDecor />
-        </div>
+          <div
+              className="w-full flex justify-center items-center transition-all"
+              style={{gridColumnStart: currentItem + 1}}
+          >
+              <RhombusDecor/>
+          </div>
       </div>
-      <div
-        className="flex overflow-y-auto border-box"
+        <div
+            className="flex overflow-y-auto border-box"
         style={{
           height: `${Math.max(0, boardSize - 48)}px`,
           maxHeight: `${Math.max(0, boardSize - 48)}px`,
@@ -68,7 +68,7 @@ export default function GameSidebar({
             >
               <RhombusDecor
                 className={cn(
-                  index % 2 === 0 ? "bg-background" : "bg-foreground",
+                  index % 2 === 0 ? "bg-neutral-100" : "bg-neutral-800",
                   "border-2 border-primary"
                 )}
               />
