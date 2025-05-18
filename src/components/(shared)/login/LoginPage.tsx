@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, {useState} from 'react';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
@@ -14,6 +14,11 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 
+import {getAuthAPI as authClient} from "@/../api/auth/auth";
+
+const { postAuthForgotPassword } = authClient();
+
+
 const schema = z.object({
 	email:    z.string().email('Невалидный email'),
 	password: z.string().min(6, 'Минимум 6 символов'),
@@ -26,7 +31,11 @@ export default function LoginPage() {
 		register,
 		handleSubmit,
 		formState: { errors, isSubmitting },
+		watch
 	} = useForm<Values>({ resolver: zodResolver(schema) });
+
+	const [isSendingReset, setIsSendingReset] = useState(false);
+
 
 	const onSubmit = async (values: Values) => {
 		const res = await signIn('credentials', {
@@ -45,13 +54,35 @@ export default function LoginPage() {
 		}
 	};
 
+	const handleForgotPassword = async () => {
+		const email = watch("email");
+
+		if (!email) {
+			toast.error("Сначала введите ваш e-mail");
+			return;
+		}
+
+		try {
+			setIsSendingReset(true);
+			await postAuthForgotPassword({ email });
+			toast.success("Ссылка для сброса пароля отправлена на почту");
+		} catch (err: any) {
+			console.error(err);
+			toast.error(
+				err?.response?.data?.message || "Не удалось отправить письмо. Попробуйте позже"
+			);
+		} finally {
+			setIsSendingReset(false);
+		}
+	};
+
 	return (
 		<motion.div
 			initial={{ opacity: 0, y: 20 }}
 			animate={{ opacity: 1, y: 0 }}
-			className="flex items-center justify-center min-h-[calc(100vh-4rem)] bg-[#E8E5E3] p-4"
+			className="flex items-center justify-center min-h-[calc(100vh-4rem)] bg-muted p-4"
 		>
-			<Card className="w-full max-w-md rounded-2xl shadow-xl border-none bg-[#F5F3F1]">
+			<Card className="w-full max-w-md rounded-2xl shadow-xl border-none bg-background">
 				<CardHeader className="text-center px-10 pt-10">
 					<h1 className="text-3xl font-extrabold tracking-tight">Вход</h1>
 				</CardHeader>
@@ -75,12 +106,24 @@ export default function LoginPage() {
 								</p>
 							)}
 						</div>
+
+						<div className="text-right">
+							<button
+								type="button"
+								onClick={handleForgotPassword}
+								disabled={isSendingReset}
+								className="text-sm font-medium text-brown-700 hover:underline disabled:opacity-60"
+							>
+								{isSendingReset ? "Отправляем…" : "Забыли пароль?"}
+							</button>
+						</div>
 					</CardContent>
 
 					<CardFooter className="px-10 pb-10">
 						<Button
 							type="submit"
 							className="w-full text-lg font-semibold rounded-xl py-6"
+							variant="transparrent"
 							disabled={isSubmitting}
 						>
 							{isSubmitting ? 'Входим…' : 'Войти'}

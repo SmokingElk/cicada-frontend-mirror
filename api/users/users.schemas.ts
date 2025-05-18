@@ -22,7 +22,6 @@ export interface DocsErrorResponse {
 }
 
 export interface DocsProfile {
-  username: string;
   age?: number;
   avatar_url?: string;
   created_at?: string;
@@ -30,6 +29,7 @@ export interface DocsProfile {
   location?: string;
   updated_at?: string;
   user_id?: string;
+  username?: string;
 }
 
 export interface DocsSuccessResponse {

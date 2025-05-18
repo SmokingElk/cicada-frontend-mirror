@@ -12,9 +12,9 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
-import {getUserAPI as createUsersClient} from "@/../api/users/users";
+import {getAuthAPI as authClient} from "@/../api/auth/auth";
 
-const { postUsersCreate } = createUsersClient();
+const { postAuthRegister } = authClient();
 
 /**
  * Zod schema для формы регистрации
@@ -51,7 +51,7 @@ export default function RegistrationPage() {
 
 	async function onSubmit(values: RegistrationValues) {
 		try {
-			await postUsersCreate({
+			await postAuthRegister({
 				email: values.email,
 				username: values.username,
 				password: values.password,
@@ -71,9 +71,9 @@ export default function RegistrationPage() {
 		<motion.div
 			initial={{ opacity: 0, y: 20 }}
 			animate={{ opacity: 1, y: 0 }}
-			className="flex items-center justify-center min-h-[calc(100vh-4rem)] bg-[#E8E5E3] p-4"
+			className="flex items-center justify-center min-h-[calc(100vh-4rem)] bg-muted p-4"
 		>
-			<Card className="w-full max-w-md rounded-2xl shadow-xl border-none bg-[#F5F3F1]">
+			<Card className="w-full max-w-md rounded-2xl shadow-xl border-none bg-background">
 				<CardHeader className="text-center px-10 pt-10">
 					<h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100">
 						Регистрация
@@ -113,6 +113,7 @@ export default function RegistrationPage() {
 						<Button
 							type="submit"
 							className="w-full text-lg font-semibold rounded-xl py-6"
+							variant="transparrent"
 							disabled={isSubmitting}
 						>
 							{isSubmitting ? "Регистрация…" : "Создать аккаунт"}

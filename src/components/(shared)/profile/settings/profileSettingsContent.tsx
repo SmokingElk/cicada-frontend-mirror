@@ -49,10 +49,10 @@ const pwdSchema = z
 type PwdValues = z.infer<typeof pwdSchema>
 
 export default function ProfileSettingsContent({
-																								 session,
-																								 profile,
-																								 userInfo,
-																							 }: Props) {
+												   session,
+												   profile,
+												   userInfo,
+											   }: Props) {
 	const [form, setForm] = useState<FormState>({
 		city: '',
 		age: null,
@@ -131,6 +131,18 @@ export default function ProfileSettingsContent({
 
 	return (
 		<div className="flex flex-col gap-12 md:flex-row md:gap-20">
+			<div className="md:hidden self-center">
+				<div className="relative w-[260px] h-[260px]">
+					<Image src={avatar} fill alt="avatar" className="rounded-full object-cover" />
+					<button
+						onClick={() => fileRef.current?.click()}
+						className="absolute inset-0 rounded-full bg-black/50 text-white font-semibold flex items-center justify-center opacity-0 hover:opacity-100 transition"
+					>
+						Загрузить
+					</button>
+				</div>
+			</div>
+
 			<div className="mb-8 flex-1 max-w-xl space-y-10">
 				<p className="text-4xl md:text-xl font-semibold">
 					{profile?.data?.username ?? 'username'}
@@ -173,10 +185,11 @@ export default function ProfileSettingsContent({
 
 				<LineSeparator width={100} />
 
-				<Dialog>
-					<DialogTrigger asChild>
-						<Button className="w-fit mr-10 text-lg">Сменить пароль</Button>
-					</DialogTrigger>
+				<div className="flex flex-row gap-4 items-center"> {/* Добавлен этот контейнер */}
+					<Dialog>
+						<DialogTrigger asChild>
+							<Button className="text-lg" variant="transparrent">Сменить пароль</Button>
+						</DialogTrigger>
 
 					<DialogContent className="sm:max-w-[420px] p-6">
 						<DialogHeader>
@@ -219,7 +232,7 @@ export default function ProfileSettingsContent({
 
 							<DialogFooter className="mt-4">
 								<DialogClose asChild>
-									<Button type="submit" disabled={isSubmitting} className="text-lg">
+									<Button type="submit" disabled={isSubmitting} className="text-lg" variant="transparrent">
 										{isSubmitting ? 'Сохраняем…' : 'Сохранить'}
 									</Button>
 								</DialogClose>
@@ -228,13 +241,19 @@ export default function ProfileSettingsContent({
 					</DialogContent>
 				</Dialog>
 
-				<Button onClick={saveProfile} disabled={saving} className="w-fit text-lg">
+				<Button
+					onClick={saveProfile}
+					disabled={saving}
+					className="text-lg"
+					variant="transparrent"
+				>
 					{saving ? 'Сохраняем…' : 'Сохранить'}
 				</Button>
+				</div>
 			</div>
 
-			<div className="self-start">
-				<div className="relative w-[260px] h-[260px] md:w-[320px] md:h-[320px]">
+			<div className="hidden md:block self-start">
+				<div className="relative w-[320px] h-[320px]">
 					<Image src={avatar} fill alt="avatar" className="rounded-full object-cover" />
 					<button
 						onClick={() => fileRef.current?.click()}

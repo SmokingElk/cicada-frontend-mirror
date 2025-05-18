@@ -43,7 +43,7 @@ const getProfile = <TData = AxiosResponse<GetProfile200>>(
      options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
-      `http://217.114.11.158:8080/profile`,options
+      `https://cicada-chess.ru:8080/profile`,options
     );
   }
 
@@ -55,7 +55,7 @@ const patchProfile = <TData = AxiosResponse<PatchProfile200>>(
     docsUpdateProfileRequest: DocsUpdateProfileRequest, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.patch(
-      `http://217.114.11.158:8080/profile`,
+      `https://cicada-chess.ru:8080/profile`,
       docsUpdateProfileRequest,options
     );
   }
@@ -70,7 +70,7 @@ const postProfileAvatar = <TData = AxiosResponse<PostProfileAvatar200>>(
 formData.append('avatar', postProfileAvatarBody.avatar)
 
     return axios.post(
-      `http://217.114.11.158:8080/profile/avatar`,
+      `https://cicada-chess.ru:8080/profile/avatar`,
       formData,options
     );
   }
@@ -83,7 +83,7 @@ const postProfileCreateId = <TData = AxiosResponse<PostProfileCreateId200>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.post(
-      `http://217.114.11.158:8080/profile/create/${id}`,undefined,options
+      `https://cicada-chess.ru:8080/profile/create/${id}`,undefined,options
     );
   }
 
@@ -95,7 +95,7 @@ const getUsers = <TData = AxiosResponse<GetUsers200>>(
     params?: GetUsersParams, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
-      `http://217.114.11.158:8080/users`,{
+      `https://cicada-chess.ru:8080/users`,{
     ...options,
         params: {...params, ...options?.params},}
     );
@@ -109,7 +109,7 @@ const postUsersCreate = <TData = AxiosResponse<PostUsersCreate201>>(
     docsCreateUserRequest: DocsCreateUserRequest, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.post(
-      `http://217.114.11.158:8080/users/create`,
+      `https://cicada-chess.ru:8080/users/create`,
       docsCreateUserRequest,options
     );
   }
@@ -122,7 +122,7 @@ const getUsersId = <TData = AxiosResponse<GetUsersId200>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
-      `http://217.114.11.158:8080/users/${id}`,options
+      `https://cicada-chess.ru:8080/users/${id}`,options
     );
   }
 
@@ -134,7 +134,7 @@ const deleteUsersId = <TData = AxiosResponse<void>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.delete(
-      `http://217.114.11.158:8080/users/${id}`,options
+      `https://cicada-chess.ru:8080/users/${id}`,options
     );
   }
 
@@ -147,7 +147,7 @@ const patchUsersId = <TData = AxiosResponse<PatchUsersId200>>(
     docsUpdateInfoRequest: DocsUpdateInfoRequest, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.patch(
-      `http://217.114.11.158:8080/users/${id}`,
+      `https://cicada-chess.ru:8080/users/${id}`,
       docsUpdateInfoRequest,options
     );
   }
@@ -161,7 +161,7 @@ const postUsersIdChangePassword = <TData = AxiosResponse<DocsSuccessResponseWith
     docsChangePasswordRequest: DocsChangePasswordRequest, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.post(
-      `http://217.114.11.158:8080/users/${id}/change-password`,
+      `https://cicada-chess.ru:8080/users/${id}/change-password`,
       docsChangePasswordRequest,options
     );
   }
@@ -174,7 +174,7 @@ const getUsersIdRating = <TData = AxiosResponse<DocsSuccessResponse>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
-      `http://217.114.11.158:8080/users/${id}/rating`,options
+      `https://cicada-chess.ru:8080/users/${id}/rating`,options
     );
   }
 
@@ -186,7 +186,7 @@ const postUsersIdToggleActive = <TData = AxiosResponse<DocsSuccessResponse>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.post(
-      `http://217.114.11.158:8080/users/${id}/toggle-active`,undefined,options
+      `https://cicada-chess.ru:8080/users/${id}/toggle-active`,undefined,options
     );
   }
 
@@ -199,7 +199,7 @@ const postUsersIdUpdateRating = <TData = AxiosResponse<DocsSuccessResponse>>(
     docsUpdateRatingRequest: DocsUpdateRatingRequest, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.post(
-      `http://217.114.11.158:8080/users/${id}/update-rating`,
+      `https://cicada-chess.ru:8080/users/${id}/update-rating`,
       docsUpdateRatingRequest,options
     );
   }

@@ -34,9 +34,14 @@ export interface DocsRefreshRequest {
   refresh_token?: string;
 }
 
+export interface DocsRegisterRequest {
+  email?: string;
+  password?: string;
+  username?: string;
+}
+
 export interface DocsResetPasswordRequest {
   new_password?: string;
-  token?: string;
 }
 
 export interface DocsSuccessResponse {
@@ -69,6 +74,13 @@ export interface DocsUser {
   username?: string;
 }
 
+export type PostAuthConfirmAccountParams = {
+/**
+ * Токен подтверждения
+ */
+token: string;
+};
+
 export type PostAuthLogin200AllOf = {
   data?: DocsToken;
 };
@@ -86,4 +98,17 @@ export type PostAuthRefresh200AllOf = {
 };
 
 export type PostAuthRefresh200 = DocsSuccessResponse & PostAuthRefresh200AllOf;
+
+export type PostAuthRegister200AllOf = {
+  data?: string;
+};
+
+export type PostAuthRegister200 = DocsSuccessResponse & PostAuthRegister200AllOf;
+
+export type PostAuthResetPasswordParams = {
+/**
+ * Токен для сброса пароля
+ */
+token: string;
+};
 
