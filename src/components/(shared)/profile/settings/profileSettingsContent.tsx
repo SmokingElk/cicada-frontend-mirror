@@ -21,8 +21,8 @@ import {
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
-import { getUserAPI } from '@/../api/users/users'
-import type { GetProfileResult, GetUsersIdResult } from '@/../api/users/users'
+import { getUserAPI } from '../../../../../external/users/users'
+import type { GetProfileResult, GetUsersIdResult } from '../../../../../external/users/users'
 import type { Session } from 'next-auth'
 import type { RawAxiosRequestHeaders } from 'axios'
 

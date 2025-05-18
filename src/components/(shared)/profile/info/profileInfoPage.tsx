@@ -7,7 +7,7 @@ import Wrapper from '@/components/(shared)/common/wrapper'
 import ProfileMenu from '@/components/(shared)/profile/menu/profileMenu'
 import ProfileInfo from '@/components/(shared)/profile/info/profileInfo'
 
-import { getUserAPI, type GetProfileResult } from '@/../api/users/users'
+import { getUserAPI, type GetProfileResult } from '../../../../../external/users/users'
 import type { Session } from 'next-auth'
 
 interface ProfileInfoPageProps {
