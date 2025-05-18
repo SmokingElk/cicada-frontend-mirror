@@ -5,7 +5,7 @@ import Image, { StaticImageData } from 'next/image'
 import { cn, normalizeUrl } from '@/lib/utils'
 import LineSeparator from '@/components/(shared)/common/lineSeparator'
 import AvatarPlaceholder from '@/../public/avatars/avatarPlaceholder.png'
-import type { GetProfileResult } from '@/../api/users/users'
+import type { GetProfileResult } from '../../../../../external/users/users'
 
 interface ProfileInfoProps {
   profile: GetProfileResult['data'] | null

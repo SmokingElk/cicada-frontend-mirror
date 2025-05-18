@@ -2,7 +2,7 @@
 
 import {useRouter, useSearchParams} from "next/navigation";
 import {useEffect, useState} from "react";
-import {getAuthAPI as authClient} from "@/../api/auth/auth";
+import {getAuthAPI as authClient} from "../../../../../external/auth/auth";
 
 const {postAuthConfirmAccount} = authClient();
 

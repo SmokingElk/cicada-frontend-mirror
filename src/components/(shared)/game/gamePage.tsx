@@ -9,7 +9,7 @@ import GameSidebar from "@/components/(shared)/game/gameSidebar/gameSidebar";
 import GameBoard from "@/components/(shared)/game/gameBoard/gameBoard";
 import { toast } from "sonner";
 import useWS, { ReadyState } from "react-use-websocket";
-import { getAuthAPI } from "@/../api/auth/auth";
+import { getAuthAPI } from "../../../../external/auth/auth";
 import type { Session } from "next-auth";
 import type { RawAxiosRequestHeaders } from "axios";
 import { start } from "repl";

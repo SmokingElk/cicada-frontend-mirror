@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
-import { getAuthAPI as authClient } from "@/../api/auth/auth";
+import { getAuthAPI as authClient } from "../../../../../external/auth/auth";
 const { postAuthResetPassword } = authClient();
 
 const schema = z
