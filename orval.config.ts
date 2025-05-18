@@ -2,7 +2,7 @@ export default {
   authService: {
     input: { target: "swagger/auth.json" },
     output: {
-      target: "./api/auth/auth.ts",
+      target: "./external/auth/auth.ts",
       mode: "split",
       client: "axios",
       baseUrl: "https://cicada-chess.ru:8081",
@@ -12,7 +12,7 @@ export default {
   userService: {
     input: { target: "swagger/users.json" },
     output: {
-      target: "./api/users/users.ts",
+      target: "./external/users/users.ts",
       mode: "split",
       client: "axios",
       baseUrl: "https://cicada-chess.ru:8080",

@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
-import {getAuthAPI as authClient} from "@/../api/auth/auth";
+import {getAuthAPI as authClient} from "../../../../external/auth/auth";
 
 const { postAuthRegister } = authClient();
 

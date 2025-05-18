@@ -9,7 +9,7 @@ import {
 	getUserAPI,
 	type GetProfileResult,
 	type GetUsersIdResult,
-} from '@/../api/users/users'
+} from '../../../../../external/users/users'
 
 import type {Session} from 'next-auth'
 import type {RawAxiosRequestHeaders} from 'axios'
