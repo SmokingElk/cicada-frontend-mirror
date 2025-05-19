@@ -1,5 +1,6 @@
 const gameSidebarMenuItems = [
-  { name: "История ходов" },
+  { name: "История\nходов" },
+  { name: "Чат" },
 ];
 
 export default gameSidebarMenuItems;
