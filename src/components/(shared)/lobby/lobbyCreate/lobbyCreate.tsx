@@ -85,7 +85,7 @@ export default function LobbyCreate({ className = "" }: Styleable) {
 
           <div className="w-full mb-4">
             <Button
-                className="bg-foreground w-full h-16 hover:bg-primary mb-4" variant="transparrent"
+                className="bg-foreground w-full h-16 hover:bg-primary hover:opacity-80 mb-4" variant="transparrent"
                 asChild
             >
               <Link href="/game" className="flex justify-center w-full gap-4">
@@ -98,7 +98,7 @@ export default function LobbyCreate({ className = "" }: Styleable) {
             </Button>
 
             <Button
-                className="bg-foreground w-full h-16 hover:bg-primary" variant="transparrent"
+                className="bg-foreground w-full h-16 hover:bg-primary hover:opacity-80" variant="transparrent"
                 asChild
             >
               <Link href="/game" className="flex justify-center w-full gap-4">
