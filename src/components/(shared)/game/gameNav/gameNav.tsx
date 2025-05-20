@@ -24,7 +24,7 @@ export default function GameNav({
     >
       <Button
         onClick={offerDraw}
-        className="w-1/2 md:w-full h-10 md:h-16"
+        className="w-1/2 md:w-full h-10 md:h-16 hover:bg-primary hover:opacity-80"
         variant="transparrent"
         size="lg"
       >
@@ -33,7 +33,7 @@ export default function GameNav({
 
       <Button
         onClick={giveUp}
-        className="w-1/2 md:w-full h-10 md:h-16"
+        className="w-1/2 md:w-full h-10 md:h-16 hover:bg-primary hover:opacity-80"
         variant="transparrent"
         size="lg"
       >

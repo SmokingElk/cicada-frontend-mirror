@@ -7,11 +7,14 @@ import GameHeader from "@/components/(shared)/game/gameHeader/gameHeader";
 import GameNav from "@/components/(shared)/game/gameNav/gameNav";
 import GameSidebar from "@/components/(shared)/game/gameSidebar/gameSidebar";
 import GameBoard from "@/components/(shared)/game/gameBoard/gameBoard";
+import GameResultModal from "@/components/(shared)/game/gameResultModal/gameResultModal";
+import {GameResult} from "@/components/(shared)/game/gameResultModal/gameResultModal";
 import { toast } from "sonner";
 import useWS, { ReadyState } from "react-use-websocket";
 import { getAuthAPI } from "../../../../external/auth/auth";
 import type { Session } from "next-auth";
 import type { RawAxiosRequestHeaders } from "axios";
+import { Button } from "@/components/ui/button";
 import { start } from "repl";
 import { json } from "stream/consumers";
 
@@ -22,10 +25,10 @@ const MESSAGE_TYPE_FINISH = "finish";
 
 interface WSMessage {
   type:
-    | typeof MESSAGE_TYPE_GAME_START
-    | typeof MESSAGE_TYPE_START
-    | typeof MESSAGE_TYPE_MOVE
-    | typeof MESSAGE_TYPE_FINISH;
+      | typeof MESSAGE_TYPE_GAME_START
+      | typeof MESSAGE_TYPE_START
+      | typeof MESSAGE_TYPE_MOVE
+      | typeof MESSAGE_TYPE_FINISH;
 }
 
 interface WSMessageGameStart {
@@ -72,6 +75,14 @@ export default function GamePage({ id, session }: GamePageProps) {
   const [userId, setUserId] = useState<string | null>(null);
   const [opponentId, setOpponentId] = useState<string | null>(null);
   const [playerColor, setPlayerColor] = useState<string>("w");
+  const [gameResult, setGameResult] = useState<GameResult>(null);
+  const [ratingChange, setRatingChange] = useState<number>(0);
+  const [isDebugMode, setIsDebugMode] = useState(false);
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    setIsDebugMode(searchParams.get('debug') === 'true');
+  }, []);
 
   useEffect(() => {
     if (!session.accessToken) return;
@@ -96,42 +107,42 @@ export default function GamePage({ id, session }: GamePageProps) {
   const boardRef = useRef<HTMLDivElement>(null);
 
   const { sendMessage, lastMessage, readyState } = useWS<WSMessage>(
-    userId
-      ? `${process.env.NEXT_PUBLIC_MULTIPLAYER_SERVICE_URL}/${id}?user_id=${userId}`
-      : null
+      userId
+          ? `${process.env.NEXT_PUBLIC_MULTIPLAYER_SERVICE_URL}/${id}?user_id=${userId}`
+          : null
   );
 
   const sendMove = useCallback(
-    (move: Move) => {
-      if (!gameStarted || userId == null) return;
+      (move: Move) => {
+        if (!gameStarted || userId == null) return;
 
-      const message: WSMessageMove = {
-        type: MESSAGE_TYPE_MOVE,
-        payload: {
-          user_id: userId,
-          move: `${move.from}-${move.to}`,
-        },
-      };
+        const message: WSMessageMove = {
+          type: MESSAGE_TYPE_MOVE,
+          payload: {
+            user_id: userId,
+            move: `${move.from}-${move.to}`,
+          },
+        };
 
-      sendMessage(JSON.stringify(message));
-    },
-    [readyState, sendMessage, gameStarted, userId]
+        sendMessage(JSON.stringify(message));
+      },
+      [readyState, sendMessage, gameStarted, userId]
   );
 
   const sendWin = useCallback(
-    (id: string | null = null) => {
-      if (!gameStarted || userId == null) return;
+      (id: string | null = null) => {
+        if (!gameStarted || userId == null) return;
 
-      const message: WSMessageFinish = {
-        type: MESSAGE_TYPE_FINISH,
-        payload: {
-          winner_id: id ?? userId,
-        },
-      };
+        const message: WSMessageFinish = {
+          type: MESSAGE_TYPE_FINISH,
+          payload: {
+            winner_id: id ?? userId,
+          },
+        };
 
-      sendMessage(JSON.stringify(message));
-    },
-    [readyState, sendMessage, gameStarted, userId]
+        sendMessage(JSON.stringify(message));
+      },
+      [readyState, sendMessage, gameStarted, userId]
   );
 
   const newMove = (move: Move) => {
@@ -147,8 +158,8 @@ export default function GamePage({ id, session }: GamePageProps) {
     ({
       [MESSAGE_TYPE_GAME_START]: () => {
         console.log(
-          "set color:",
-          (message as WSMessageGameStart).data.color[0]
+            "set color:",
+            (message as WSMessageGameStart).data.color[0]
         );
         const startMsg: WSMessageGameStart = message as WSMessageGameStart;
         setPlayerColor(startMsg.data.color[0]);
@@ -175,9 +186,9 @@ export default function GamePage({ id, session }: GamePageProps) {
 
       [MESSAGE_TYPE_FINISH]: () => {
         console.log(
-          "finish",
-          (message as WSMessageFinish).payload.winner_id,
-          userId
+            "finish",
+            (message as WSMessageFinish).payload.winner_id,
+            userId
         );
 
         if ((message as WSMessageFinish).payload.winner_id === userId) {
@@ -199,65 +210,92 @@ export default function GamePage({ id, session }: GamePageProps) {
 
   useEffect(() => {
     console.log(
-      "ws: ",
-      {
-        [ReadyState.CONNECTING]: "Connecting",
-        [ReadyState.OPEN]: "Open",
-        [ReadyState.CLOSING]: "Closing",
-        [ReadyState.CLOSED]: "Closed",
-        [ReadyState.UNINSTANTIATED]: "Uninstantiated",
-      }[readyState]
+        "ws: ",
+        {
+          [ReadyState.CONNECTING]: "Connecting",
+          [ReadyState.OPEN]: "Open",
+          [ReadyState.CLOSING]: "Closing",
+          [ReadyState.CLOSED]: "Closed",
+          [ReadyState.UNINSTANTIATED]: "Uninstantiated",
+        }[readyState]
     );
   }, [readyState]);
 
   const win = () => {
     setAllowMove(false);
+    setGameResult("win");
+    setRatingChange(1);
     toast.success("Победа!");
   };
 
   const lose = () => {
     setAllowMove(false);
+    setGameResult("lose");
+    setRatingChange(-1);
     toast.success("Поражение!");
+  };
+
+  const draw = () => {
+    setAllowMove(false);
+    setGameResult("draw");
+    setRatingChange(0);
+    toast.success("Ничья!");
   };
 
   const giveUp = useCallback(() => {
     if (opponentId == null) return;
     setAllowMove(false);
+    setGameResult("surrender");
+    setRatingChange(-1);
     sendWin(opponentId);
   }, [opponentId]);
-
-  const draw = () => {
-    setAllowMove(false);
-    toast.success("Ничья!");
-  };
 
   const offerDraw = () => {
     // отправка запроса на сервер, второму игроку должно высветится предложение
   };
 
   return (
-    <Wrapper className="min-h-screen h-auto max-w-screen">
-      <div className="flex flex-col md:grid md:grid-cols-4 md:grid-rows-[150px_auto] gap-x-5 gap-y-16 mb-10">
-        <GameHeader className="col-span-4 order-1" />
-        <GameNav
-          className="order-3 md:order-2"
-          giveUp={giveUp}
-          offerDraw={offerDraw}
-        />
-        <GameBoard
-          boardRef={boardRef}
-          className="order-2 md:order-3 col-span-2 w-full overflow-hidden"
-          sendMove={sendMove}
-          newMove={newMove}
-          opponentMove={opponentMove}
-          allowMove={allowMove && gameStarted}
-          draw={draw}
-          win={sendWin}
-          lose={lose}
-          playerColor={playerColor}
-        />
-        <GameSidebar moves={moves} boardSize={boardSize} className="order-4" />
-      </div>
-    </Wrapper>
+      <Wrapper className="min-h-screen h-auto max-w-screen">
+        <div className="flex flex-col md:grid md:grid-cols-4 md:grid-rows-[150px_auto] gap-x-5 gap-y-16 mb-10">
+          {isDebugMode && (<div className="fixed bottom-4 right-4 flex gap-2 z-50">
+            <Button variant="outline" onClick={() => setGameResult("win")}>
+              Тест: Победа
+            </Button>
+            <Button variant="outline" onClick={() => setGameResult("lose")}>
+              Тест: Поражение
+            </Button>
+            <Button variant="outline" onClick={() => setGameResult("draw")}>
+              Тест: Ничья
+            </Button>
+            <Button variant="outline" onClick={() => setGameResult("surrender")}>
+              Тест: Сдался
+            </Button>
+          </div>)}
+          <GameHeader className="col-span-4 order-1"/>
+          <GameNav
+              className="order-3 md:order-2"
+              giveUp={giveUp}
+              offerDraw={offerDraw}
+          />
+          <GameBoard
+              boardRef={boardRef}
+              className="order-2 md:order-3 col-span-2 w-full overflow-hidden"
+              sendMove={sendMove}
+              newMove={newMove}
+              opponentMove={opponentMove}
+              allowMove={allowMove && gameStarted}
+              draw={draw}
+              win={sendWin}
+              lose={lose}
+              playerColor={playerColor}
+          />
+          <GameSidebar moves={moves} boardSize={boardSize} className="order-4"/>
+          <GameResultModal
+              result={gameResult}
+              ratingChange={ratingChange}
+              onClose={() => setGameResult(null)}
+          />
+        </div>
+      </Wrapper>
   );
 }

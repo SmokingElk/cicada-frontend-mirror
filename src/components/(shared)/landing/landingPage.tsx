@@ -56,7 +56,7 @@ export default function LandingPage() {
               пошаговые уроки от мастеров, разборы партий и рейтинговые турниры 24/7. Присоединяйтесь
               — прокачайте мышление и почувствуйте вкус побед уже сегодня.
             </div>
-            <Button className="w-1/2" variant="transparrent" size="xl" asChild>
+            <Button className="w-1/2 hover:bg-primary hover:opacity-80" variant="transparrent" size="xl" asChild>
               <Link href="/lobby">Играть</Link>
             </Button>
           </div>
