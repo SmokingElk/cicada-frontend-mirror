@@ -18,4 +18,14 @@ export default {
       baseUrl: "https://cicada-chess.ru:8080",
     },
   },
+
+  multiplayerService: {
+    input: { target: "swagger/multiplayer.json" },
+    output: {
+      target: "./external/multiplayer/multiplayer.ts",
+      mode: "split",
+      client: "axios",
+      baseUrl: "https://cicada-chess.ru:8083",
+    }
+  }
 };

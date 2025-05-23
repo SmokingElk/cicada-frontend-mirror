@@ -1,0 +1,506 @@
+{
+  "schemes": [],
+  "swagger": "2.0",
+  "info": {
+    "description": "API для управления игровыми лобби",
+    "title": "Multiplayer Service API",
+    "contact": {},
+    "version": "1.0"
+  },
+  "host": "cicada-chess.ru:8083",
+  "basePath": "/",
+  "paths": {
+    "/game/create": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "game"
+        ],
+        "summary": "Создание нового лобби",
+        "parameters": [
+          {
+            "description": "Данные для создания лобби",
+            "name": "input",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/docs.CreateGameRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/docs.GameResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/docs.ErrorResponse"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/docs.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/docs.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/game/create-custom": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "game"
+        ],
+        "summary": "Создание нового кастомного лобби",
+        "parameters": [
+          {
+            "description": "Данные для создания кастомного лобби",
+            "name": "input",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/docs.CreateGameRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/docs.GameResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/docs.ErrorResponse"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/docs.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/docs.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/game/info": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "game"
+        ],
+        "summary": "Получение списка лобби",
+        "parameters": [
+          {
+            "type": "integer",
+            "default": 10,
+            "description": "Лимит результатов",
+            "name": "limit",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/docs.Game"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/docs.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/docs.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/game/join": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "game"
+        ],
+        "summary": "Присоединение к рейтинговой игре",
+        "parameters": [
+          {
+            "description": "Данные для присоединения к рейтинговой игре",
+            "name": "input",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/docs.JoinGameRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/docs.GameResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/docs.ErrorResponse"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/docs.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/docs.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/game/join-custom": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "game"
+        ],
+        "summary": "Присоединится к кастомной игре",
+        "parameters": [
+          {
+            "description": "Данные для присоединения к кастомной игре",
+            "name": "input",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/docs.JoinCustomGameRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/docs.GameResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/docs.ErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/docs.ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/docs.ErrorResponse"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/docs.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/docs.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/game/{id}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "game"
+        ],
+        "summary": "Получение информации о лобби",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "ID лобби",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/docs.Game"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/docs.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/docs.ErrorResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "docs.CreateGameRequest": {
+      "type": "object",
+      "required": [
+        "game_timeout",
+        "name",
+        "rating",
+        "user_id"
+      ],
+      "properties": {
+        "game_timeout": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "rating": {
+          "type": "integer"
+        },
+        "user_id": {
+          "type": "string"
+        }
+      }
+    },
+    "docs.ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "docs.Game": {
+      "type": "object",
+      "properties": {
+        "boardFEN": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "currentTurn": {
+          "type": "string"
+        },
+        "gameTimeout": {
+          "type": "integer"
+        },
+        "id": {
+          "type": "string"
+        },
+        "isPrivate": {
+          "type": "boolean"
+        },
+        "moveHistory": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "players": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/docs.Player"
+          }
+        },
+        "startTime": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "version": {
+          "type": "integer"
+        },
+        "winner": {
+          "description": "nil - нет победителя, \"\" - ничья, \"id\" - победитель",
+          "type": "string"
+        }
+      }
+    },
+    "docs.GameResponse": {
+      "type": "object",
+      "properties": {
+        "board_fen": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "current_turn": {
+          "type": "string"
+        },
+        "game_timeout": {
+          "type": "integer"
+        },
+        "id": {
+          "type": "string"
+        },
+        "is_private": {
+          "type": "boolean"
+        },
+        "move_history": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "players": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/docs.PlayerResponse"
+          }
+        },
+        "start_time": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "docs.JoinCustomGameRequest": {
+      "type": "object",
+      "required": [
+        "game_id",
+        "rating",
+        "user_id"
+      ],
+      "properties": {
+        "game_id": {
+          "type": "string"
+        },
+        "rating": {
+          "type": "integer"
+        },
+        "user_id": {
+          "type": "string"
+        }
+      }
+    },
+    "docs.JoinGameRequest": {
+      "type": "object",
+      "required": [
+        "rating",
+        "user_id"
+      ],
+      "properties": {
+        "rating": {
+          "type": "integer"
+        },
+        "user_id": {
+          "type": "string"
+        }
+      }
+    },
+    "docs.Player": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "rating": {
+          "type": "integer"
+        }
+      }
+    },
+    "docs.PlayerResponse": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "rating": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}
